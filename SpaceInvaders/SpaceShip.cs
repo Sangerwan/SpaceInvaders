@@ -8,13 +8,24 @@ namespace SpaceInvaders
 {
     class SpaceShip : GameObject
     {
-        double speedPixelPerSecond;
+        private float positionX;
+        private float positionY;
+        private int lives;
+        private Bitmap image = SpaceInvaders.Properties.Resources.ship3;
+        private double speedPixelPerSecond;
 
-        public Vecteur2D Position
+        public SpaceShip(float positionX, float positionY, int lives, Bitmap image)
         {
-
+            this.positionX = positionX;
+            this.positionY = positionY;
+            this.Lives = lives;
+            this.Image = image;
         }
-        
+
+        public Vecteur2D Position { get => new Vecteur2D(positionX, positionY); }        
+        public int Lives { get => lives; set => lives = value; }
+        public Bitmap Image { get => image; set => image = value; }
+
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             throw new NotImplementedException();
