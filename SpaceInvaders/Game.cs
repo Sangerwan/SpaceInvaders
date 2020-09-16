@@ -40,7 +40,7 @@ namespace SpaceInvaders
         /// </summary>
         public Size gameSize;
         public SpaceShip playerShip;
-
+        public Missile playerMissile;
         /// <summary>
         /// State of the keyboard
         /// </summary>
@@ -89,7 +89,12 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
-            playerShip = new SpaceShip(0, gameSize.Height-50, 3, SpaceInvaders.Properties.Resources.ship3);
+            playerShip = new SpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
+            /*playerMissile = new Missile(playerShip.Position.X + playerShip.Image.Width / 2,
+                                                    playerShip.Position.Y,
+                                                    1, SpaceInvaders.Properties.Resources.shoot1);
+            playerShip.addMissile(playerMissile);
+            AddNewGameObject(playerMissile);*/
             AddNewGameObject(playerShip);
             this.gameSize = gameSize;
         }
@@ -130,15 +135,17 @@ namespace SpaceInvaders
 
 
             // if space is pressed
-            if (keyPressed.Contains(Keys.Space))
+            /*if (keyPressed.Contains(Keys.Space))
             {
                 // create new BalleQuiTombe
                 GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
+                
                 // add it to the game
                 AddNewGameObject(newObject);
+                
                 // release key space (no autofire)
                 ReleaseKey(Keys.Space);
-            }
+            }*/
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)

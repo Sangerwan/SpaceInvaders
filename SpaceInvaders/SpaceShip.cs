@@ -14,22 +14,24 @@ namespace SpaceInvaders
         private int lives;
         private Bitmap image;
         private double speedPixelPerSecond = 100;
-
+        private Missile missile;
         public SpaceShip(double positionX, double positionY, int lives, Bitmap image)
         {
             this.positionX = positionX;
             this.positionY = positionY;
-            this.Lives = lives;
-            this.Image = image;
+            this.lives = lives;
+            this.image = image;
+
         }
 
-        public Vecteur2D Position { get => new Vecteur2D(positionX, positionY); }        
+
+        public Vecteur2D Position { get => new Vecteur2D(positionX, positionY); }
         public int Lives { get => lives; set => lives = value; }
         public Bitmap Image { get => image; set => image = value; }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(image, (float) positionX, (float) positionY, image.Width, image.Height);
+            graphics.DrawImage(image, (float)positionX, (float)positionY, image.Width, image.Height);
         }
 
         public override bool IsAlive()
@@ -50,7 +52,20 @@ namespace SpaceInvaders
                 positionX -= speedPixelPerSecond * deltaT;
                 if (positionX < 0)
                     positionX += speedPixelPerSecond * deltaT;
-            }    
+            }
+            if (gameInstance.keyPressed.Contains(Keys.Space))
+            {
+                shoot(gameInstance);
+            }
+        }
+
+        public void shoot(Game gameInstance)
+        {
+            if (missile == null || !missile.IsAlive())
+            {
+                missile = new Missile(positionX + image.Width / 2, positionY, 1, SpaceInvaders.Properties.Resources.shoot1);
+                gameInstance.AddNewGameObject(missile);
+            }
         }
     }
 }
