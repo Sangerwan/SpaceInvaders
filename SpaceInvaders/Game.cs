@@ -10,7 +10,8 @@ namespace SpaceInvaders
 {
     class Game
     {
-
+        
+        
         #region GameObjects management
         /// <summary>
         /// Set of all game objects currently in the game
@@ -38,6 +39,7 @@ namespace SpaceInvaders
         /// Size of the game area
         /// </summary>
         public Size gameSize;
+        public SpaceShip playerShip;
 
         /// <summary>
         /// State of the keyboard
@@ -72,8 +74,10 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         /// 
         /// <returns></returns>
+        
         public static Game CreateGame(Size gameSize)
         {
+            
             if (game == null)
                 game = new Game(gameSize);
             return game;
@@ -85,6 +89,8 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
+            playerShip = new SpaceShip(0, gameSize.Height-50, 3, SpaceInvaders.Properties.Resources.ship3);
+            AddNewGameObject(playerShip);
             this.gameSize = gameSize;
         }
 

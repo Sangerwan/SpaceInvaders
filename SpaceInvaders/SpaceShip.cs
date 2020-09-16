@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
     class SpaceShip : GameObject
     {
-        private float positionX;
-        private float positionY;
+        private double positionX;
+        private double positionY;
         private int lives;
-        private Bitmap image = SpaceInvaders.Properties.Resources.ship3;
-        private double speedPixelPerSecond;
+        private Bitmap image;
+        private double speedPixelPerSecond = 100;
 
-        public SpaceShip(float positionX, float positionY, int lives, Bitmap image)
+        public SpaceShip(double positionX, double positionY, int lives, Bitmap image)
         {
             this.positionX = positionX;
             this.positionY = positionY;
@@ -28,17 +29,28 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            throw new NotImplementedException();
+            graphics.DrawImage(image, (float) positionX, (float) positionY, image.Width, image.Height);
         }
 
         public override bool IsAlive()
         {
-            throw new NotImplementedException();
+            return (lives != 0) ? true : false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            throw new NotImplementedException();
+            if (gameInstance.keyPressed.Contains(Keys.Right))
+            {
+                positionX += speedPixelPerSecond * deltaT;
+                if (positionX + image.Width > gameInstance.gameSize.Width)
+                    positionX -= speedPixelPerSecond * deltaT;
+            }
+            if (gameInstance.keyPressed.Contains(Keys.Left))
+            {
+                positionX -= speedPixelPerSecond * deltaT;
+                if (positionX < 0)
+                    positionX += speedPixelPerSecond * deltaT;
+            }    
         }
     }
 }
