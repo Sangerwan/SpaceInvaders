@@ -15,12 +15,12 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(image, (float)positionX, (float)positionY, image.Width, image.Height);
+            graphics.DrawImage(Image, (float)PositionX, (float)PositionY, Image.Width, Image.Height);
         }
 
         public override bool IsAlive()
         {
-            return (lives != 0) ? true : false;
+            return (Lives != 0) ? true : false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
@@ -29,7 +29,28 @@ namespace SpaceInvaders
         }
         public override void Collision(Missile m)
         {
+            double missilePositionX = m.PositionX;
+            double missilePositionLX = m.PositionX + m.Image.Width;
+            double missilePositionY = m.PositionY;
+            double missilePositionLY = m.PositionY + m.Image.Height;
+            if (!Disjoint())
+            {
 
+            }
         }
+        /// <summary>
+        /// /Test if bunker is disjoint from parameters
+        /// </summary>
+        /// <param name="x2"></param>
+        /// <param name="xl2"></param>
+        /// <param name="y2"></param>
+        /// <param name="ly2"></param>
+        /// <returns></returns>
+        private bool Disjoint(double x2, double xl2, double y2, double ly2)
+        {
+            return OnLeft(x2) || OnRight(x2,xl2) || OnTop(y2,yl2) || OnBottom(y2)
+        }
+
+
     }
 }

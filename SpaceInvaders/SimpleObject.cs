@@ -8,17 +8,23 @@ namespace SpaceInvaders
 {
     abstract class SimpleObject:GameObject
     {
-        protected double positionX;
-        protected double positionY;
-        protected int lives;
-        protected Bitmap image;
+        private double positionX;
+        private double positionY;
+        private int lives;
+        private Bitmap image;
+
+        public double PositionX { get => positionX; set => positionX = value; }
+        public double PositionY { get => positionY; set => positionY = value; }
+        public int Lives { get => lives; set => lives = value; }
+        public Bitmap Image { get => image; set => image = value; }
+        public Vecteur2D Position { get => new Vecteur2D(PositionX, PositionY); }
 
         protected SimpleObject(double positionX, double positionY, int lives, Bitmap image)
         {
-            this.positionX = positionX;
-            this.positionY = positionY;
-            this.lives = lives;
-            this.image = image;
+            this.PositionX = positionX;
+            this.PositionY = positionY;
+            this.Lives = lives;
+            this.Image = image;
         }
     }
 }
