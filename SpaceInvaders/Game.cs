@@ -40,7 +40,8 @@ namespace SpaceInvaders
         /// </summary>
         public Size gameSize;
         public SpaceShip playerShip;
-        public Missile playerMissile;
+        enum GameState { Play, Pause};
+        GameState state;
         /// <summary>
         /// State of the keyboard
         /// </summary>
@@ -89,6 +90,7 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
+            state = GameState.Play;
             playerShip = new SpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
             /*playerMissile = new Missile(playerShip.Position.X + playerShip.Image.Width / 2,
                                                     playerShip.Position.Y,
@@ -129,23 +131,35 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
-            // add new game objects
-            gameObjects.UnionWith(pendingNewGameObjects);
-            pendingNewGameObjects.Clear();
-
-
-            // if space is pressed
-            /*if (keyPressed.Contains(Keys.Space))
+            if (keyPressed.Contains(Keys.P))
             {
-                // create new BalleQuiTombe
+                if (state == GameState.Play)
+                    state = GameState.Pause;
+                if (state == GameState.Pause)
+                    state = GameState.Play;
+                ReleaseKey(Keys.Space);
+                /*// create new BalleQuiTombe
                 GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
                 
                 // add it to the game
                 AddNewGameObject(newObject);
                 
                 // release key space (no autofire)
-                ReleaseKey(Keys.Space);
-            }*/
+                ReleaseKey(Keys.Space);*/
+            }
+            if (state == GameState.Pause)
+            {
+                
+                return;
+            }
+            
+            // add new game objects
+            gameObjects.UnionWith(pendingNewGameObjects);
+            pendingNewGameObjects.Clear();
+
+
+            // if space is pressed
+            
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)

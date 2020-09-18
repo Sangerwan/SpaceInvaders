@@ -7,23 +7,19 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
-    class SpaceShip : GameObject
+    class SpaceShip : SimpleObject
     {
-        private double positionX;
+        /*private double positionX;
         private double positionY;
         private int lives;
-        private Bitmap image;
+        private Bitmap image;*/
         private double speedPixelPerSecond = 100;
         private Missile missile;
-        public SpaceShip(double positionX, double positionY, int lives, Bitmap image)
+        public SpaceShip(double positionX, double positionY, int lives, Bitmap image) : base( positionX,  positionY,  lives,  image)
         {
-            this.positionX = positionX;
-            this.positionY = positionY;
-            this.lives = lives;
-            this.image = image;
 
         }
-
+    
 
         public Vecteur2D Position { get => new Vecteur2D(positionX, positionY); }
         public int Lives { get => lives; set => lives = value; }

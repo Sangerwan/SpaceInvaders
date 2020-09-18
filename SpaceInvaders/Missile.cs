@@ -6,20 +6,14 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class Missile : GameObject
+    class Missile : SimpleObject
     {
-        private double positionX;
-        private double positionY;
-        private int lives;
-        private Bitmap image;
+        
         private double vitesse = 1000;
 
-        public Missile(double positionX, double positionY, int lives, Bitmap image)
+        public Missile(double positionX, double positionY, int lives, Bitmap image):base(positionX - image.Width / 2, positionY - image.Height, lives,image)
         {
-            this.positionX = positionX-image.Width/2;
-            this.positionY = positionY-image.Height;
-            this.lives = lives;
-            this.image = image;
+
         }
 
 
