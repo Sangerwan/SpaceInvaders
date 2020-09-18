@@ -9,7 +9,7 @@ namespace SpaceInvaders
     class Missile : SimpleObject
     {
         
-        private double vitesse = 1000;
+        private double vitesse = 150;
 
         public Missile(double positionX, double positionY, int lives, Bitmap image):base(positionX - image.Width / 2, positionY - image.Height, lives,image)
         {

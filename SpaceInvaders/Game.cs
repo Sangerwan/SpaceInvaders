@@ -122,6 +122,8 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            if (state == GameState.Pause)
+                g.DrawString("pause", defaultFont, blackBrush,0,0);
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
@@ -135,24 +137,25 @@ namespace SpaceInvaders
             {
                 if (state == GameState.Play)
                     state = GameState.Pause;
-                if (state == GameState.Pause)
+                else if (state == GameState.Pause)
                     state = GameState.Play;
-                ReleaseKey(Keys.Space);
+                ReleaseKey(Keys.P);
                 /*// create new BalleQuiTombe
                 GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
                 
                 // add it to the game
                 AddNewGameObject(newObject);
                 
-                // release key space (no autofire)
-                ReleaseKey(Keys.Space);*/
+                // release key space (no autofire)*/
+                
             }
             if (state == GameState.Pause)
             {
-                
+                //pause
                 return;
             }
             
+
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
