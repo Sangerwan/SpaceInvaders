@@ -9,6 +9,7 @@ namespace SpaceInvaders
 {
     class Bunker : SimpleObject
     {
+
         public Bunker(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image)
         { }
 
@@ -30,12 +31,12 @@ namespace SpaceInvaders
         public override void Collision(Missile m)
         {
             double missilePositionX = m.PositionX;
-            double missilePositionLX = m.PositionX + m.Image.Width;
+            double missilePositionLX = m.Image.Width;
             double missilePositionY = m.PositionY;
-            double missilePositionLY = m.PositionY + m.Image.Height;
-            if (!Disjoint())
+            double missilePositionLY = m.Image.Height;
+            if (!Disjoint(missilePositionX, missilePositionLX, missilePositionY, missilePositionLY))
             {
-
+                Image = SpaceInvaders.Properties.Resources.shoot3;
             }
         }
         /// <summary>
@@ -46,11 +47,34 @@ namespace SpaceInvaders
         /// <param name="y2"></param>
         /// <param name="ly2"></param>
         /// <returns></returns>
-        private bool Disjoint(double x2, double xl2, double y2, double ly2)
+        private bool Disjoint(double x2, double xl2, double y2, double yl2)
         {
-            return OnLeft(x2) || OnRight(x2,xl2) || OnTop(y2,yl2) || OnBottom(y2)
+            return OnLeft(x2) || OnRight(x2, xl2) || Below(y2, yl2) || Above(y2);
+            
         }
 
+        private bool Above(double y2)
+        {
+            return y2 > PositionY + Image.Height;
+        }
 
+        private bool Below(double y2, double yl2)
+        {
+            return PositionY > y2 + yl2;
+        }
+
+        private bool OnRight(double x2, double xl2)
+        {
+            return PositionX > x2 + xl2;
+        }
+        /// <summary>
+        /// Test if Bunker is on left
+        /// </summary>
+        /// <param name="x2"></param>
+        /// <returns></returns>
+        private bool OnLeft(double x2)
+        {
+            return x2 > PositionX + Image.Width;
+        }
     }
 }

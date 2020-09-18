@@ -33,7 +33,7 @@ namespace SpaceInvaders
             if (gameInstance.keyPressed.Contains(Keys.Right))
             {
                 PositionX += speedPixelPerSecond * deltaT;
-                if (PositionX + base.Image.Width > gameInstance.gameSize.Width)
+                if (PositionX + Image.Width > gameInstance.gameSize.Width)
                     PositionX -= speedPixelPerSecond * deltaT;
             }
             if (gameInstance.keyPressed.Contains(Keys.Left))
@@ -42,10 +42,23 @@ namespace SpaceInvaders
                 if (PositionX < 0)
                     PositionX += speedPixelPerSecond * deltaT;
             }
+            if (gameInstance.keyPressed.Contains(Keys.Up))
+            {
+                PositionY -= speedPixelPerSecond * deltaT;
+                if (PositionY < 0)
+                    PositionY += speedPixelPerSecond * deltaT;
+            }
+            if (gameInstance.keyPressed.Contains(Keys.Down))
+            {
+                PositionY += speedPixelPerSecond * deltaT;
+                if (PositionY +Image.Width> gameInstance.gameSize.Height)
+                    PositionY -= speedPixelPerSecond * deltaT;
+            }
             if (gameInstance.keyPressed.Contains(Keys.Space))
             {
                 shoot(gameInstance);
             }
+
         }
 
         public void shoot(Game gameInstance)
