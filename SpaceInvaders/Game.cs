@@ -40,6 +40,9 @@ namespace SpaceInvaders
         /// </summary>
         public Size gameSize;
         public SpaceShip playerShip;
+        public Bunker bunker1;
+        public Bunker bunker2;
+        public Bunker bunker3;
         enum GameState { Play, Pause};
         GameState state;
         /// <summary>
@@ -92,12 +95,13 @@ namespace SpaceInvaders
         {
             state = GameState.Play;
             playerShip = new SpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
-            /*playerMissile = new Missile(playerShip.Position.X + playerShip.Image.Width / 2,
-                                                    playerShip.Position.Y,
-                                                    1, SpaceInvaders.Properties.Resources.shoot1);
-            playerShip.addMissile(playerMissile);
-            AddNewGameObject(playerMissile);*/
             AddNewGameObject(playerShip);
+            bunker1 = new Bunker(50, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
+            AddNewGameObject(bunker1);
+            bunker2 = new Bunker(gameSize.Width/2 -50, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
+            AddNewGameObject(bunker2);
+            bunker3 = new Bunker(gameSize.Width-150, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
+            AddNewGameObject(bunker3);
             this.gameSize = gameSize;
         }
 

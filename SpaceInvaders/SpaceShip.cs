@@ -63,5 +63,9 @@ namespace SpaceInvaders
                 gameInstance.AddNewGameObject(missile);
             }
         }
+        public override void Collision(Missile m)
+        {
+
+        }
     }
 }

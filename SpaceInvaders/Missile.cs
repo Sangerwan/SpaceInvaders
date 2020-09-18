@@ -16,6 +16,7 @@ namespace SpaceInvaders
 
         }
 
+        
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
@@ -29,11 +30,18 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {   
-                positionY -= vitesse * deltaT;
-                if (positionY < 0)
-                    lives = 0;          
+            positionY -= vitesse * deltaT;
+            if (positionY < 0)
+                lives = 0;
+            foreach (GameObject gameObject in gameInstance.gameObjects)
+            {
+                gameObject.Collision(this);
+            }
+        }
+        public override void Collision(Missile m)
+        {
+            
         }
 
-        
     }
 }
