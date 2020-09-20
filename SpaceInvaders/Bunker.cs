@@ -36,7 +36,9 @@ namespace SpaceInvaders
             double missilePositionLY = m.Image.Height;
             if (!Disjoint(missilePositionX, missilePositionLX, missilePositionY, missilePositionLY))
             {
-                Image = SpaceInvaders.Properties.Resources.shoot3;
+                //Image.SetPixel(0, 0, Color.FromArgb(255, 0, 0, 0));
+                
+                //Image = SpaceInvaders.Properties.Resources.shoot3;
             }
         }
         /// <summary>
