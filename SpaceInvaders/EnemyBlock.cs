@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
@@ -10,16 +11,13 @@ namespace SpaceInvaders
     {
         private HashSet<SpaceShip> enemyShips;
         int baseWidth;
-        Size size;
-        Vecteur2D position;
+        private Size size;
+        private Vecteur2D position;
 
-        private Size Size1 { get => size; set => size = value; }
-        internal Vecteur2D Position { get => position; set => position = value; }
+        private Size Size { get => size; set => size = value; }
+        private Vecteur2D Position { get => position; set => position = value; }
 
-        struct Size{
-            int hauteur;
-            int largeur;
-        }
+
 
         public EnemyBlock(int baseWidth, Vecteur2D position)
         {
@@ -30,7 +28,12 @@ namespace SpaceInvaders
 
         void AddLine(int nbShips, int nbLives, Bitmap shipImage)
         {
+            //playerShip = new PlayerSpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
 
+            for(int i = 0; i < nbShips; i++)
+            {
+                enemyShips.Add(new SpaceShip(i / nbShips * size.Width, 0, 0, SpaceInvaders.Properties.Resources.ship3));
+            }
         }
 
         void UpdateSize()
