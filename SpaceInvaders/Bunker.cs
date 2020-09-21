@@ -26,9 +26,9 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            
+
         }
-        public override void Collision(Missile m)
+        public override void Collision(Missile m)//mb change to GO
         {
             double missilePositionX = m.PositionX;
             double missilePositionLX = m.Image.Width;
@@ -36,7 +36,25 @@ namespace SpaceInvaders
             double missilePositionLY = m.Image.Height;
             if (!Disjoint(missilePositionX, missilePositionLX, missilePositionY, missilePositionLY))
             {
-                //Image.SetPixel(0, 0, Color.FromArgb(255, 0, 0, 0));
+                for (int i = 0; i < m.Image.Height; i++)
+                {
+                    for (int j = 0; j < m.Image.Width; j++)
+                    {
+                        int y = (int)(missilePositionY + i - PositionY);
+                        int x = (int)(missilePositionX + j - PositionX);
+                        if (!(x < 0 || y < 0 || x >= Image.Width || y >= Image.Height)) //test if out of bonds 
+                        {
+                            if (m.Image.GetPixel(j, i) == Image.GetPixel(x, y))
+                            {
+                                Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
+                            }
+
+                            Console.WriteLine(" i:" + i + "x" + (int)(missilePositionX + j - PositionX) + " j: " + j + "y:" + (int)(missilePositionY + i - PositionY));
+                        }
+                    }
+                }
+
+                //Image.SetPixel(0, 0, Color.FromArgb(255, 0, 0, 0)); //noir
                 //
                 //Image = SpaceInvaders.Properties.Resources.shoot3;
             }
@@ -52,7 +70,7 @@ namespace SpaceInvaders
         private bool Disjoint(double x2, double xl2, double y2, double yl2)
         {
             return OnLeft(x2) || OnRight(x2, xl2) || Below(y2, yl2) || Above(y2);
-            
+
         }
 
         private bool Above(double y2)

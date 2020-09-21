@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Bunker.cs" />
     <Compile Include="Missile.cs" />
+    <Compile Include="PlayerSpaceShip.cs" />
     <Compile Include="SimpleObject.cs" />
     <Compile Include="SpaceShip.cs" />
     <Compile Include="Form1.cs">

@@ -39,7 +39,7 @@ namespace SpaceInvaders
         /// Size of the game area
         /// </summary>
         public Size gameSize;
-        public SpaceShip playerShip;
+        public PlayerSpaceShip playerShip;
         public Bunker bunker1;
         public Bunker bunker2;
         public Bunker bunker3;
@@ -94,7 +94,7 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             state = GameState.Play;
-            playerShip = new SpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
+            playerShip = new PlayerSpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
             AddNewGameObject(playerShip);
             bunker1 = new Bunker(50, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
             AddNewGameObject(bunker1);

@@ -10,8 +10,8 @@ namespace SpaceInvaders
     class SpaceShip : SimpleObject
     {
 
-        private double speedPixelPerSecond = 100;
-        private Missile missile;
+        protected double speedPixelPerSecond = 100;
+        protected Missile missile;
         public SpaceShip(double positionX, double positionY, int lives, Bitmap image) : base( positionX,  positionY,  lives,  image)
         {
 
@@ -30,34 +30,7 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            if (gameInstance.keyPressed.Contains(Keys.Right))
-            {
-                PositionX += speedPixelPerSecond * deltaT;
-                if (PositionX + Image.Width > gameInstance.gameSize.Width)
-                    PositionX -= speedPixelPerSecond * deltaT;
-            }
-            if (gameInstance.keyPressed.Contains(Keys.Left))
-            {
-                PositionX -= speedPixelPerSecond * deltaT;
-                if (PositionX < 0)
-                    PositionX += speedPixelPerSecond * deltaT;
-            }
-            if (gameInstance.keyPressed.Contains(Keys.Up))
-            {
-                PositionY -= speedPixelPerSecond * deltaT;
-                if (PositionY < 0)
-                    PositionY += speedPixelPerSecond * deltaT;
-            }
-            if (gameInstance.keyPressed.Contains(Keys.Down))
-            {
-                PositionY += speedPixelPerSecond * deltaT;
-                if (PositionY +Image.Width> gameInstance.gameSize.Height)
-                    PositionY -= speedPixelPerSecond * deltaT;
-            }
-            if (gameInstance.keyPressed.Contains(Keys.Space))
-            {
-                shoot(gameInstance);
-            }
+           
 
         }
 
@@ -65,7 +38,7 @@ namespace SpaceInvaders
         {
             if (missile == null || !missile.IsAlive())
             {
-                missile = new Missile(PositionX + base.Image.Width / 2, PositionY, 1, Properties.Resources.shoot1);
+                missile = new Missile(PositionX + Image.Width / 2, PositionY, 1, Properties.Resources.shoot1);
                 gameInstance.AddNewGameObject(missile);
             }
         }
