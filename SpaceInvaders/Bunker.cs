@@ -47,6 +47,9 @@ namespace SpaceInvaders
                             if (m.Image.GetPixel(j, i) == Image.GetPixel(x, y))
                             {
                                 Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
+                                m.Lives--;
+                                if (!m.IsAlive())
+                                    return;
                             }
 
                             Console.WriteLine(" i:" + i + "x" + (int)(missilePositionX + j - PositionX) + " j: " + j + "y:" + (int)(missilePositionY + i - PositionY));
