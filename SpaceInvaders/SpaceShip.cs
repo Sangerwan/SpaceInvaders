@@ -38,7 +38,7 @@ namespace SpaceInvaders
         {
             if (missile == null || !missile.IsAlive())
             {
-                missile = new Missile(PositionX + Image.Width / 2, PositionY, 20, Properties.Resources.shoot1);
+                missile = new Missile(PositionX + Image.Width / 2, PositionY, 15, Properties.Resources.shoot1);
                 gameInstance.AddNewGameObject(missile);
             }
         }

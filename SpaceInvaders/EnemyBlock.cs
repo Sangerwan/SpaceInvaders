@@ -21,19 +21,21 @@ namespace SpaceInvaders
 
         public EnemyBlock(int baseWidth, Vecteur2D position)
         {
+            this.enemyShips = new HashSet<SpaceShip>();
             this.baseWidth = baseWidth;
             this.Position = position;
         }
 
 
-        void AddLine(int nbShips, int nbLives, Bitmap shipImage)
+        public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
         {
             //playerShip = new PlayerSpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
 
             for(int i = 0; i < nbShips; i++)
             {
-                enemyShips.Add(new SpaceShip(i / nbShips * size.Width, 0, 0, SpaceInvaders.Properties.Resources.ship3));
+                enemyShips.Add(new SpaceShip(((double)i / nbShips) * baseWidth+ (baseWidth/nbShips-shipImage.Width)/2, 0, 1, shipImage));
             }
+            Console.WriteLine(enemyShips.Count);
         }
 
         void UpdateSize()
@@ -43,22 +45,34 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            throw new NotImplementedException();
+            foreach (SpaceShip spaceShip in enemyShips)
+            {
+                spaceShip.Update(gameInstance, deltaT);
+            }
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            throw new NotImplementedException();
+            foreach (SpaceShip spaceShip in enemyShips)
+            {
+                spaceShip.Draw(gameInstance, graphics);
+            }
         }
 
         public override bool IsAlive()
         {
-            throw new NotImplementedException();
+            
+            foreach (SpaceShip spaceShip in enemyShips)
+            {
+                if (spaceShip.IsAlive())
+                    return true;
+            }
+            return false;
         }
 
         public override void Collision(Missile m)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

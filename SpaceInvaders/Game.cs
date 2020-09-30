@@ -43,6 +43,7 @@ namespace SpaceInvaders
         public Bunker bunker1;
         public Bunker bunker2;
         public Bunker bunker3;
+        public EnemyBlock enemyBlock;
         enum GameState { Play, Pause};
         GameState state;
         /// <summary>
@@ -102,6 +103,10 @@ namespace SpaceInvaders
             AddNewGameObject(bunker2);
             bunker3 = new Bunker(gameSize.Width-150, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
             AddNewGameObject(bunker3);
+
+            enemyBlock = new EnemyBlock(gameSize.Width, new Vecteur2D(0, 0));
+            enemyBlock.AddLine(5, 1, SpaceInvaders.Properties.Resources.ship3);
+            AddNewGameObject(enemyBlock);
             this.gameSize = gameSize;
         }
 

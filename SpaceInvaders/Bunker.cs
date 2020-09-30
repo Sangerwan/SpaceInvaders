@@ -9,7 +9,7 @@ namespace SpaceInvaders
 {
     class Bunker : SimpleObject
     {
-
+        
         public Bunker(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image)
         { }
 
