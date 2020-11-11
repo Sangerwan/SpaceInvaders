@@ -11,10 +11,22 @@ namespace SpaceInvaders
     /// </summary>
     abstract class GameObject
     {
-       
-        public GameObject()
+        
+        public GameObject(Side entitySide)
         {
+            this.entitySide = entitySide;
         }
+
+        public enum Side
+        {
+            Ally,
+            Enemy,
+            Neutral
+        }
+
+        public Side entitySide;
+
+        public Side EntitySide { get => entitySide; set => entitySide = value; }
 
         /// <summary>
         /// Update the state of a game objet

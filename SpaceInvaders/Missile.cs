@@ -9,16 +9,18 @@ namespace SpaceInvaders
     class Missile : SimpleObject
     {
         
-        private double vitesse = 150;
+        private double vitesse;
 
         
 
-        public Missile(double positionX, double positionY, int lives, Bitmap image):base(positionX - image.Width / 2, positionY - image.Height, lives,image)
+        public Missile(double positionX, double positionY, int lives, Bitmap image,Side side) : base(positionX - image.Width / 2, positionY - image.Height, lives,image,side)
         {
-            PositionX = positionX;
-            PositionY = positionY;
-            Lives = lives;
-            Image = image;
+            this.vitesse = 150;
+            if (side == Side.Enemy)
+            {
+                this.vitesse = -150;
+            }
+            
         }
 
 
@@ -30,23 +32,28 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return (Lives != 0) ? true : false;
+            return (Lives > 0) ? true : false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {   
             PositionY -= vitesse * deltaT;
-            if (PositionY < 0)
-                Lives = 0;
+            if(vitesse > 0)
+                if (PositionY < 0)
+                    Lives = 0;
+            if (vitesse < 0)
+                if (PositionY > gameInstance.gameSize.Height)
+                    Lives = 0;
             foreach (GameObject gameObject in gameInstance.gameObjects)
             {
+                if (gameObject == this) continue;
                 gameObject.Collision(this);
             }
         }
-        public override void Collision(Missile m)
+        protected override void OnCollision(Missile m, int x, int y)
         {
-            
+            this.Lives = 0;
+            m.Lives = 0;
         }
-
     }
 }

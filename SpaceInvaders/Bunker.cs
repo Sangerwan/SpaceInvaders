@@ -10,7 +10,7 @@ namespace SpaceInvaders
     class Bunker : SimpleObject
     {
         
-        public Bunker(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image)
+        public Bunker(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image,Side.Ally)
         { }
 
 
@@ -21,14 +21,20 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return (Lives != 0) ? true : false;
+            return (Lives > 0) ? true : false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {
 
         }
-        public override void Collision(Missile m)//mb change to GO
+
+        protected override void OnCollision(Missile m, int x, int y)
+        {
+            Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
+            m.Lives--;
+        }
+        /*public override void Collision(Missile m)
         {
             double missilePositionX = m.PositionX;
             double missilePositionLX = m.Image.Width;
@@ -42,7 +48,7 @@ namespace SpaceInvaders
                     {
                         int y = (int)(missilePositionY + i - PositionY);
                         int x = (int)(missilePositionX + j - PositionX);
-                        if (!(x < 0 || y < 0 || x >= Image.Width || y >= Image.Height)) //test if out of bonds 
+                        if (!(x < 0 || y < 0 || x >= Image.Width || y >= Image.Height)) 
                         {
                             if (m.Image.GetPixel(j, i) == Image.GetPixel(x, y))
                             {
@@ -51,15 +57,10 @@ namespace SpaceInvaders
                                 if (!m.IsAlive())
                                     return;
                             }
-
                             Console.WriteLine(" i:" + i + "x" + (int)(missilePositionX + j - PositionX) + " j: " + j + "y:" + (int)(missilePositionY + i - PositionY));
                         }
                     }
                 }
-
-                //Image.SetPixel(0, 0, Color.FromArgb(255, 0, 0, 0)); //noir
-                //
-                //Image = SpaceInvaders.Properties.Resources.shoot3;
             }
         }
         /// <summary>
@@ -98,6 +99,6 @@ namespace SpaceInvaders
         private bool OnLeft(double x2)
         {
             return x2 > PositionX + Image.Width;
-        }
+        }*/
     }
 }

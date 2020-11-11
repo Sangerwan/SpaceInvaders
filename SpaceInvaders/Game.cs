@@ -104,8 +104,12 @@ namespace SpaceInvaders
             bunker3 = new Bunker(gameSize.Width-150, gameSize.Height - 150, 1, SpaceInvaders.Properties.Resources.bunker);
             AddNewGameObject(bunker3);
 
-            enemyBlock = new EnemyBlock(gameSize.Width, new Vecteur2D(0, 0));
-            enemyBlock.AddLine(5, 1, SpaceInvaders.Properties.Resources.ship3);
+            enemyBlock = new EnemyBlock(gameSize.Width/2, new Vecteur2D(0, 0));
+            enemyBlock.AddLine(5, 20, SpaceInvaders.Properties.Resources.ship1);
+            enemyBlock.AddLine(4, 20, SpaceInvaders.Properties.Resources.ship2);
+            enemyBlock.AddLine(3, 20, SpaceInvaders.Properties.Resources.ship3);
+            enemyBlock.AddLine(2, 20, SpaceInvaders.Properties.Resources.ship4);
+            enemyBlock.AddLine(1, 20, SpaceInvaders.Properties.Resources.ship5);
             AddNewGameObject(enemyBlock);
             this.gameSize = gameSize;
         }
@@ -136,6 +140,7 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
+
 
         /// <summary>
         /// Update game
@@ -181,6 +186,7 @@ namespace SpaceInvaders
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+            
         }
         #endregion
     }

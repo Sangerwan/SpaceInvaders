@@ -12,7 +12,7 @@ namespace SpaceInvaders
 
         protected double speedPixelPerSecond = 100;
         protected Missile missile;
-        public SpaceShip(double positionX, double positionY, int lives, Bitmap image) : base( positionX,  positionY,  lives,  image)
+        public SpaceShip(double positionX, double positionY, int lives, Bitmap image,Side side) : base( positionX,  positionY,  lives,  image,side)
         {
 
         }
@@ -25,26 +25,26 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return (base.Lives != 0) ? true : false;
+            return (base.Lives > 0) ? true : false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {
-           
-
+            PositionX += deltaT;
         }
 
         public void shoot(Game gameInstance)
         {
             if (missile == null || !missile.IsAlive())
             {
-                missile = new Missile(PositionX + Image.Width / 2, PositionY, 15, Properties.Resources.shoot1);
+                missile = new Missile(PositionX + Image.Width / 2, PositionY, 5, Properties.Resources.shoot1,this.entitySide);
                 gameInstance.AddNewGameObject(missile);
             }
         }
-        public override void Collision(Missile m)
+        protected override void OnCollision(Missile m, int x, int y)
         {
-
+            this.Lives--;
+            m.Lives--;
         }
     }
 }

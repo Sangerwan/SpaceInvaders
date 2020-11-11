@@ -10,7 +10,7 @@ namespace SpaceInvaders
 
     class PlayerSpaceShip : SpaceShip
     {
-        public PlayerSpaceShip(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image)
+        public PlayerSpaceShip(double positionX, double positionY, int lives, Bitmap image) : base(positionX, positionY, lives, image,Side.Ally )
         {
         }
         public override void Update(Game gameInstance, double deltaT)
@@ -43,7 +43,14 @@ namespace SpaceInvaders
             {
                 shoot(gameInstance);
             }
-
         }
+        public override void Draw(Game gameInstance, Graphics graphics)
+        {
+            base.Draw(gameInstance, graphics);
+            Brush blackBrush = new SolidBrush(Color.Black);
+            Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
+            graphics.DrawString(this.Lives.ToString(), defaultFont, blackBrush, 0, gameInstance.gameSize.Height-24);
+        }
+        
     }
 }
