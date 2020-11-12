@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Media;
 
 namespace SpaceInvaders
 {
@@ -44,6 +45,7 @@ namespace SpaceInvaders
         public Bunker bunker2;
         public Bunker bunker3;
         public EnemyBlock enemyBlock;
+        private SoundPlayer player;
         enum GameState { Play, Pause};
         GameState state;
         /// <summary>
@@ -94,6 +96,13 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
+
+            player = new SoundPlayer(SpaceInvaders.Properties.Resources.failsound);
+
+            player.LoadAsync();
+
+            player.PlayLooping();
+            
             state = GameState.Play;
             playerShip = new PlayerSpaceShip(0, gameSize.Height - 50, 3, SpaceInvaders.Properties.Resources.ship3);
             AddNewGameObject(playerShip);
@@ -112,6 +121,7 @@ namespace SpaceInvaders
             enemyBlock.AddLine(1, 20, SpaceInvaders.Properties.Resources.ship5);
             AddNewGameObject(enemyBlock);
             this.gameSize = gameSize;
+            
         }
 
         #endregion
@@ -137,6 +147,7 @@ namespace SpaceInvaders
         {
             if (state == GameState.Pause)
                 g.DrawString("pause", defaultFont, blackBrush,0,0);
+            
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
@@ -149,6 +160,7 @@ namespace SpaceInvaders
         {
             if (keyPressed.Contains(Keys.P))
             {
+                player.Play();
                 if (state == GameState.Play)
                     state = GameState.Pause;
                 else if (state == GameState.Pause)
