@@ -7,6 +7,16 @@ namespace SpaceInvaders
 {
     class Entity
     {
-        List<Component> componentList;
+        HashSet<Component> components;
+
+        public void addComponent(Component component)
+        {
+            components.Add(component);
+        }
+
+        public void removeComponent(Component component)
+        {
+
+        }
     }
 }

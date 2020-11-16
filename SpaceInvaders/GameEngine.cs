@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
-    class Game
+    class GameEngine
     {
 
         #region GameObjects management
@@ -51,7 +51,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Singleton for easy access
         /// </summary>
-        public static Game game { get; private set; }
+        public static GameEngine game { get; private set; }
 
         /// <summary>
         /// A shared black brush
@@ -72,10 +72,10 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         /// 
         /// <returns></returns>
-        public static Game CreateGame(Size gameSize)
+        public static GameEngine CreateGame(Size gameSize)
         {
             if (game == null)
-                game = new Game(gameSize);
+                game = new GameEngine(gameSize);
             return game;
         }
 
@@ -83,7 +83,7 @@ namespace SpaceInvaders
         /// Private constructor
         /// </summary>
         /// <param name="gameSize">Size of the game area</param>
-        private Game(Size gameSize)
+        private GameEngine(Size gameSize)
         {
             this.gameSize = gameSize;
         }

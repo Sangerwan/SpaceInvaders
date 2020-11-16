@@ -51,14 +51,14 @@ namespace SpaceInvaders
 
         #region Methods
 
-        public override void Update(Game gameInstance, double deltaT)
+        public override void Update(GameEngine gameInstance, double deltaT)
         {
             y += ballSpeed * deltaT;
             if (y > gameInstance.gameSize.Height)
                 alive = false;
         }
 
-        public override void Draw(Game gameInstance, Graphics graphics)
+        public override void Draw(GameEngine gameInstance, Graphics graphics)
         {
             float xmin = (float)(x - radius);
             float ymin = (float)(y - radius);
