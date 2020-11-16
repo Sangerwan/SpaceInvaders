@@ -112,6 +112,7 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
+        
 
         /// <summary>
         /// Update game
