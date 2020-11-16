@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class RespawnComponent
+    class RespawnComponent:Component
     {
     }
 }

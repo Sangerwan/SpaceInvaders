@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
+using System.Drawing;
 
-namespace SpaceInvaders.Properties
+namespace SpaceInvaders
 {
     class DisplayComponent:Component
     {

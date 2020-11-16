@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class SoundComponent
+    class SoundComponent:Component
     {
     }
 }

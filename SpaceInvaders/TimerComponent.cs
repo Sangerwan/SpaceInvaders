@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class TimerComponent
+    class TimerComponent:Component
     {
         Type a = typeof(Component);
     }

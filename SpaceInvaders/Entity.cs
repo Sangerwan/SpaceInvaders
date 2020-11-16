@@ -5,7 +5,8 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class ImageComponent:Component
+    class Entity
     {
+        List<Component> componentList;
     }
 }
