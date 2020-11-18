@@ -5,7 +5,13 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class SoundSystem
+    static class EntitySide
     {
+        public enum Side
+        {
+            Ally,
+            Enemy,
+            Neutral
+        }
     }
 }

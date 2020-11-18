@@ -7,8 +7,23 @@ namespace SpaceInvaders
 {
     class VelocityComponent:Component
     {
-        double x;
-        double y;
-        double angle;
+        double velocityX;
+        double velocityY;
+        double angularVelocity;
+
+        public VelocityComponent(double velocityX, double velocityY) : this(velocityX, velocityY, 0)
+        {            
+        }
+
+        public VelocityComponent(double velocityX, double velocityY, double angularVelocity)
+        {
+            this.VelocityX = velocityX;
+            this.VelocityY = velocityY;
+            this.AngularVelocity = angularVelocity;
+        }
+
+        public double VelocityX { get => velocityX; set => velocityX = value; }
+        public double VelocityY { get => velocityY; set => velocityY = value; }
+        public double AngularVelocity { get => angularVelocity; set => angularVelocity = value; }
     }
 }

@@ -7,8 +7,16 @@ namespace SpaceInvaders
 {
     class PositionComponent:Component
     {
-        double x;
-        double y;
-        double angle;
+        double positionX;
+        double positionY;
+
+        public PositionComponent(double positionX, double positionY)
+        {
+            this.PositionX = positionX;
+            this.PositionY = positionY;
+        }
+
+        public double PositionX { get => positionX; set => positionX = value; }
+        public double PositionY { get => positionY; set => positionY = value; }
     }
 }

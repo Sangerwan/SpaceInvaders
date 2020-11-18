@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BunkerComponent.cs" />
+    <Compile Include="CollisionComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
     <Compile Include="CollisionSystem.cs">
       <DependentUpon>SystemManager.cs</DependentUpon>
     </Compile>
@@ -53,10 +57,9 @@
     <Compile Include="DamageComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityManager.cs" />
+    <Compile Include="EntitySide.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,17 +68,26 @@
     </Compile>
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="HitboxComponent.cs" />
     <Compile Include="ImageComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="InputSystem.cs">
       <DependentUpon>SystemManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="LifeComponent.cs">
+    <Compile Include="HealthComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
+    <Compile Include="MissileComponent.cs" />
     <Compile Include="MoveSystem.cs">
       <DependentUpon>SystemManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnCollisionBunkerComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnCollisionMissileComponent.cs" />
+    <Compile Include="PlayerComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="PositionComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
@@ -89,17 +101,11 @@
     <Compile Include="RespawnComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
-    <Compile Include="SoundComponent.cs">
+    <Compile Include="SideComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
-    <Compile Include="SoundSystem.cs">
-      <DependentUpon>SystemManager.cs</DependentUpon>
-    </Compile>
+    <Compile Include="SpaceShipComponent.cs" />
     <Compile Include="SystemManager.cs" />
-    <Compile Include="TimerComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Vecteur2D.cs" />
     <Compile Include="VelocityComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
@@ -116,6 +122,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

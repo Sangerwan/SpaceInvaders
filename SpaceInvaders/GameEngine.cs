@@ -10,8 +10,6 @@ namespace SpaceInvaders
 {
     class GameEngine
     {
-
-        #region GameObjects management
         /// <summary>
         /// Set of all game objects currently in the game
         /// </summary>
@@ -21,17 +19,6 @@ namespace SpaceInvaders
         /// Set of new game objects scheduled for addition to the game
         /// </summary>
         private HashSet<GameObject> pendingNewGameObjects = new HashSet<GameObject>();
-
-        /// <summary>
-        /// Schedule a new object for addition in the game.
-        /// The new object will be added at the beginning of the next update loop
-        /// </summary>
-        /// <param name="gameObject">object to add</param>
-        public void AddNewGameObject(GameObject gameObject)
-        {
-            pendingNewGameObjects.Add(gameObject);
-        }
-        #endregion
 
         #region game technical elements
         /// <summary>
@@ -43,6 +30,15 @@ namespace SpaceInvaders
         /// State of the keyboard
         /// </summary>
         public HashSet<Keys> keyPressed = new HashSet<Keys>();
+
+        enum GameState { Play, Pause, Win, Loose , Menu};
+        GameState state;
+
+        
+
+        public EntityManager entityManager;
+
+        public SystemManager systemManager;
 
         #endregion
 
@@ -76,7 +72,17 @@ namespace SpaceInvaders
         {
             if (game == null)
                 game = new GameEngine(gameSize);
+            game.Init();
             return game;
+        }
+        /// <summary>
+        /// Create all Entity for the game
+        /// </summary>
+        public void Init()
+        {
+            entityManager = new EntityManager();
+            entityManager.Init(this);
+            systemManager = new SystemManager();
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="gameSize">Size of the game area</param>
         private GameEngine(Size gameSize)
-        {
+        {            
             this.gameSize = gameSize;
         }
 
@@ -109,6 +115,8 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            if (state == GameState.Pause)
+                g.DrawString("pause", defaultFont, blackBrush, 0, 0);
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
@@ -122,19 +130,22 @@ namespace SpaceInvaders
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
-            
-            
 
-            // if space is pressed
-            if (keyPressed.Contains(Keys.Space))
-            {
-                // create new BalleQuiTombe
-                GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
-                // add it to the game
-                AddNewGameObject(newObject);
-                // release key space (no autofire)
-                ReleaseKey(Keys.Space);
+            if (keyPressed.Contains(Keys.P))
+            {                
+                if (state == GameState.Play)
+                    state = GameState.Pause;
+                else if (state == GameState.Pause)
+                    state = GameState.Play;
+                ReleaseKey(Keys.P);
             }
+            if (state == GameState.Pause)
+            {
+                //pause
+                return;
+            }
+
+            
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)

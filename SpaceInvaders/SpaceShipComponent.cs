@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class LifeComponent:Component
+    class SpaceShipComponent:Component
     {
     }
 }
