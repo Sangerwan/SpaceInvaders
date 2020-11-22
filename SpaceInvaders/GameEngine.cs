@@ -80,9 +80,10 @@ namespace SpaceInvaders
         /// </summary>
         public void Init()
         {
-            entityManager = new EntityManager();
-            entityManager.Init(this);
-            systemManager = new SystemManager();
+            
+            entityManager = new EntityManager(this);
+            //entityManager.Init(this);
+            systemManager = new SystemManager(this);
         }
 
         /// <summary>
@@ -117,8 +118,11 @@ namespace SpaceInvaders
         {
             if (state == GameState.Pause)
                 g.DrawString("pause", defaultFont, blackBrush, 0, 0);
-            foreach (GameObject gameObject in gameObjects)
-                gameObject.Draw(this, g);       
+
+            renderSystem = systemManager.get
+            systemManager.update(this, g);
+            /*foreach (GameObject gameObject in gameObjects)
+                gameObject.Draw(this, g);       */
         }
         
 

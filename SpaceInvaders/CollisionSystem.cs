@@ -5,15 +5,19 @@ using System.Text;
 using System.Drawing;
 namespace SpaceInvaders
 {
-    class CollisionSystem
-    {
+    class CollisionSystem:GameSystem
+    {       
 
-        public void update(GameEngine ge)
+        /*public CollisionSystem(HashSet<Entity> entities)
         {
-            HashSet<Entity> entities = ge.entityManager.gameObjects;
+            this.Entities = entities;
+        }*/
+        public void update(GameEngine gameEngine)
+        {
+            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
             foreach(Entity a in entities)
             {
-                if (a.GetComponent(typeof(CollisionComponent)) == null) continue;   // only missile has collision atm
+                if (a.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm
                 HitboxComponent hitboxA =(HitboxComponent) a.GetComponent(typeof(HitboxComponent));
                 if (hitboxA != null)
                 {
@@ -36,7 +40,7 @@ namespace SpaceInvaders
                             ImageComponent imageB = (ImageComponent)b.GetComponent(typeof(ImageComponent));                            
                             if (imageA == null || imageB == null) continue;
 
-                            ImagePixelCollisionTest(ge, a, b);
+                            ImagePixelCollisionTest(gameEngine, a, b);
                         }
                         
                         /*if (e.GetComponent(typeof(BunkerComponent)) != null) OnCollisionBunker(m, e);
@@ -57,7 +61,7 @@ namespace SpaceInvaders
             return AIsLeftOfB || AIsRightOfB || AIsAboveB || AIsBelowB;
         }
 
-        void ImagePixelCollisionTest(GameEngine ge, Entity a, Entity b)
+        void ImagePixelCollisionTest(GameEngine gameEngine, Entity a, Entity b)
         {
             
             PositionComponent positionA = (PositionComponent)a.GetComponent(typeof(PositionComponent));            
@@ -89,8 +93,8 @@ namespace SpaceInvaders
                             HealthComponent bHp = (HealthComponent)b.GetComponent(typeof(HealthComponent));
                             if(aHp.Life<=0 || bHp.Life <= 0)
                             {
-                                if (aHp.Life <= 0) ge.entityManager.gameObjects.Remove(a);
-                                if (bHp.Life <= 0) ge.entityManager.gameObjects.Remove(b);
+                                if (aHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(a);
+                                if (bHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(b);
                                 return;
                             }
                         }

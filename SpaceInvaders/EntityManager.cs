@@ -7,16 +7,14 @@ namespace SpaceInvaders
 {
     class EntityManager
     {
-        public HashSet<Entity> gameObjects;
-        enum Side
+        HashSet<Entity> gameObjects;
+
+        public HashSet<Entity> GameObjects { get => gameObjects; set => gameObjects = value; }
+
+        
+        public EntityManager(GameEngine gameEngine)
         {
-            Ally,
-            Enemy,
-            Neutral
-        }
-        public EntityManager()
-        {
-            this.gameObjects= new HashSet<Entity>();
+            this.GameObjects= new HashSet<Entity>();
 
             #region testo
             {
@@ -38,13 +36,13 @@ namespace SpaceInvaders
                 
 
                 
-                gameObjects.Add(player);
+                GameObjects.Add(player);
             }
-            
+            Init(gameEngine);
             #endregion
         }
 
-        public void Init(GameEngine gameEngine)
+        void Init(GameEngine gameEngine)
         {
             InitPlayer(gameEngine);
             InitEnemy(gameEngine);
@@ -52,19 +50,19 @@ namespace SpaceInvaders
             InitSound(gameEngine);
         }
 
-        public void InitSound(GameEngine gameEngine)
+        void InitSound(GameEngine gameEngine)
         {
             //background sound
         }
 
-        public void InitBunker(GameEngine gameEngine)
+        void InitBunker(GameEngine gameEngine)
         {
-            gameObjects.Add(CreateBunker(50, gameEngine.gameSize.Height - 150));
-            gameObjects.Add(CreateBunker(gameEngine.gameSize.Width / 2 - 50, gameEngine.gameSize.Height - 150));
-            gameObjects.Add(CreateBunker(gameEngine.gameSize.Width - 150, gameEngine.gameSize.Height - 150));
+            GameObjects.Add(CreateBunker(50, gameEngine.gameSize.Height - 150));
+            GameObjects.Add(CreateBunker(gameEngine.gameSize.Width / 2 - 50, gameEngine.gameSize.Height - 150));
+            GameObjects.Add(CreateBunker(gameEngine.gameSize.Width - 150, gameEngine.gameSize.Height - 150));
         }
 
-        public Entity CreateBunker(double positionX, double positionY)
+        Entity CreateBunker(double positionX, double positionY)
         {
             Entity bunker = new Entity();
             BunkerComponent bunkerComp = new BunkerComponent();
@@ -81,12 +79,12 @@ namespace SpaceInvaders
 
             return bunker;
         }
-        public void InitEnemy(GameEngine gameEngine)
+        void InitEnemy(GameEngine gameEngine)
         {
             
         }
 
-        public void InitPlayer(GameEngine gameEngine)
+        void InitPlayer(GameEngine gameEngine)
         {
             Entity player = new Entity();
             PlayerComponent isPlayer = new PlayerComponent();
@@ -105,7 +103,7 @@ namespace SpaceInvaders
             player.addComponent(velocity);
             player.addComponent(side);
 
-            gameObjects.Add(player);
+            GameObjects.Add(player);
             
 
         }

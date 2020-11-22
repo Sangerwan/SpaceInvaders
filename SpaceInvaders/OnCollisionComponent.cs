@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class CollisionComponent:Component
+    class OnCollisionComponent:Component
     {
     }
 }

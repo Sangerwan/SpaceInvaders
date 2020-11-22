@@ -5,7 +5,13 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class RenderSystem
+    class RenderSystem: GameSystem
     {
+        public HashSet<GameObject> renderableEntities = new HashSet<GameObject>();
+
+        public void update(GameEngine gameEngine)
+        {
+
+        }
     }
 }

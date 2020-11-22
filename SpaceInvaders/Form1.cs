@@ -101,6 +101,9 @@ namespace SpaceInvaders
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
             gameEngine.keyPressed.Add(e.KeyCode);
+            InputSystem inputSystem = (InputSystem)gameEngine.systemManager.GetSystem(typeof(InputSystem));
+
+
         }
 
         /// <summary>

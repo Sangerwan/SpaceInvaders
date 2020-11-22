@@ -46,8 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BunkerComponent.cs" />
-    <Compile Include="CollisionComponent.cs">
+    <Compile Include="BunkerComponent.cs">
+      <DependentUpon>Entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputComponent.cs" />
+    <Compile Include="OnCollisionComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="CollisionSystem.cs">
@@ -65,7 +68,10 @@
     </Compile>
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="HitboxComponent.cs" />
+    <Compile Include="GameSystem.cs" />
+    <Compile Include="HitboxComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
@@ -75,13 +81,17 @@
     <Compile Include="HealthComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
-    <Compile Include="MissileComponent.cs" />
+    <Compile Include="MissileComponent.cs">
+      <DependentUpon>Entity.cs</DependentUpon>
+    </Compile>
     <Compile Include="MoveSystem.cs">
       <DependentUpon>SystemManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="OnCollisionMissileComponent.cs" />
-    <Compile Include="PlayerComponent.cs">
+    <Compile Include="dOnCollisionMissileComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerComponent.cs">
+      <DependentUpon>Entity.cs</DependentUpon>
     </Compile>
     <Compile Include="PositionComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
@@ -98,7 +108,9 @@
     <Compile Include="SideComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
-    <Compile Include="SpaceShipComponent.cs" />
+    <Compile Include="SpaceShipComponent.cs">
+      <DependentUpon>Entity.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemManager.cs" />
     <Compile Include="VelocityComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
