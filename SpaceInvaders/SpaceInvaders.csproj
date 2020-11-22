@@ -54,9 +54,6 @@
       <DependentUpon>SystemManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Component.cs" />
-    <Compile Include="DamageComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="EntitySide.cs" />
@@ -81,9 +78,6 @@
     <Compile Include="MissileComponent.cs" />
     <Compile Include="MoveSystem.cs">
       <DependentUpon>SystemManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OnCollisionBunkerComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="OnCollisionMissileComponent.cs" />
     <Compile Include="PlayerComponent.cs">

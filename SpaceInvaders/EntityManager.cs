@@ -27,14 +27,6 @@ namespace SpaceInvaders
                 Component velocity = new VelocityComponent(0, 0, 0);
                 Component side = new SideComponent(EntitySide.Side.Ally);
 
-                OnCollisionBunkerComponent a = new OnCollisionBunkerComponent();
-                player.addComponent(a);
-
-                OnCollisionBunkerComponent b = (OnCollisionBunkerComponent)player.GetComponent(typeof(OnCollisionBunkerComponent));
-                OnCollisionBunkerComponent b2 = (OnCollisionBunkerComponent)player.GetComponent(typeof(CollisionComponent));
-
-                Console.WriteLine(b);
-                Console.WriteLine(b2);
 
 
                 player.addComponent(image);
@@ -43,13 +35,9 @@ namespace SpaceInvaders
                 player.addComponent(velocity);
                 player.addComponent(side);
                 
-                Entity player2 = new Entity();
-                DamageComponent dmg = new DamageComponent(1);
-                player2.addComponent(dmg);
-                OnCollisionBunkerComponent c = (OnCollisionBunkerComponent)player.GetComponent(typeof(OnCollisionBunkerComponent));
                 
 
-                Console.WriteLine(life.Life);
+                
                 gameObjects.Add(player);
             }
             
@@ -71,13 +59,31 @@ namespace SpaceInvaders
 
         public void InitBunker(GameEngine gameEngine)
         {
-            Entity bunker1 = new Entity();
-
+            gameObjects.Add(CreateBunker(50, gameEngine.gameSize.Height - 150));
+            gameObjects.Add(CreateBunker(gameEngine.gameSize.Width / 2 - 50, gameEngine.gameSize.Height - 150));
+            gameObjects.Add(CreateBunker(gameEngine.gameSize.Width - 150, gameEngine.gameSize.Height - 150));
         }
 
+        public Entity CreateBunker(double positionX, double positionY)
+        {
+            Entity bunker = new Entity();
+            BunkerComponent bunkerComp = new BunkerComponent();
+            ImageComponent bunkerImage = new ImageComponent(SpaceInvaders.Properties.Resources.bunker);
+            HitboxComponent bunkerHitbox = new HitboxComponent(bunkerImage.Image);
+            PositionComponent bunkerPosition = new PositionComponent(positionX, positionY);
+            SideComponent bunkerSide = new SideComponent(EntitySide.Side.Neutral);
+
+            bunker.addComponent(bunkerComp);
+            bunker.addComponent(bunkerImage);
+            bunker.addComponent(bunkerHitbox);
+            bunker.addComponent(bunkerPosition);
+            bunker.addComponent(bunkerSide);
+
+            return bunker;
+        }
         public void InitEnemy(GameEngine gameEngine)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void InitPlayer(GameEngine gameEngine)
@@ -85,6 +91,7 @@ namespace SpaceInvaders
             Entity player = new Entity();
             PlayerComponent isPlayer = new PlayerComponent();
             ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
+            HitboxComponent hitbox = new HitboxComponent(image.Image);
             PositionComponent position = new PositionComponent(0, gameEngine.gameSize.Height - 50);
             HealthComponent life = new HealthComponent(3);
             VelocityComponent velocity = new VelocityComponent(0, 0, 0);
@@ -92,10 +99,12 @@ namespace SpaceInvaders
 
             player.addComponent(isPlayer);
             player.addComponent(image);
+            player.addComponent(hitbox);
             player.addComponent(position);
             player.addComponent(life);
             player.addComponent(velocity);
             player.addComponent(side);
+
             gameObjects.Add(player);
             
 

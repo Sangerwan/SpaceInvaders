@@ -5,15 +5,15 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class OnCollisionBunkerComponent:Component
+    class dOnCollisionMissileComponent:Component
     {
         Action<Entity> onCollision;
-
-        public OnCollisionBunkerComponent(Action<Entity> onCollision)
+        
+        public dOnCollisionMissileComponent(Action<Entity> onCollision)
         {
             this.onCollision = onCollision;
         }
 
-        public Action<Entity> OnCollision { get => onCollision;}
+        public Action<Entity> OnCollision { get => onCollision; }
     }
 }
