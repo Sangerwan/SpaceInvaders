@@ -5,8 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class InputComponent:Component
+    class CanShootComponent:Component
     {
-
     }
 }

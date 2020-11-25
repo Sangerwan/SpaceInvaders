@@ -19,23 +19,25 @@ namespace SpaceInvaders
             #region testo
             {
                 Entity player = new Entity();
-                Component image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
-                Component position = new PositionComponent(0, 0);
-                HealthComponent life = new HealthComponent(3);
-                Component velocity = new VelocityComponent(0, 0, 0);
-                Component side = new SideComponent(EntitySide.Side.Ally);
-
-
+                ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
+                PositionComponent position = new PositionComponent(0, 0);
+                HealthComponent life = new HealthComponent(1);
+                VelocityComponent velocity = new VelocityComponent(0, 0, 0);
+                SideComponent side = new SideComponent(EntitySide.Side.Enemy);
+                HitboxComponent collision = new HitboxComponent(image.Image);
+                SpaceShipComponent spaceShip = new SpaceShipComponent();
 
                 player.addComponent(image);
                 player.addComponent(position);
                 player.addComponent(life);
                 player.addComponent(velocity);
                 player.addComponent(side);
-                
-                
+                player.addComponent(collision);
+                player.addComponent(spaceShip);
 
-                
+
+
+
                 GameObjects.Add(player);
             }
             Init(gameEngine);
@@ -70,12 +72,15 @@ namespace SpaceInvaders
             HitboxComponent bunkerHitbox = new HitboxComponent(bunkerImage.Image);
             PositionComponent bunkerPosition = new PositionComponent(positionX, positionY);
             SideComponent bunkerSide = new SideComponent(EntitySide.Side.Neutral);
+            HealthComponent health = new HealthComponent(1000);
+            
 
             bunker.addComponent(bunkerComp);
             bunker.addComponent(bunkerImage);
             bunker.addComponent(bunkerHitbox);
             bunker.addComponent(bunkerPosition);
             bunker.addComponent(bunkerSide);
+            bunker.addComponent(health);
 
             return bunker;
         }
@@ -94,7 +99,8 @@ namespace SpaceInvaders
             HealthComponent life = new HealthComponent(3);
             VelocityComponent velocity = new VelocityComponent(0, 0, 0);
             SideComponent side = new SideComponent(EntitySide.Side.Ally);
-
+            InputComponent input = new InputComponent();
+            CanShootComponent shoot = new CanShootComponent();
             player.addComponent(isPlayer);
             player.addComponent(image);
             player.addComponent(hitbox);
@@ -102,10 +108,44 @@ namespace SpaceInvaders
             player.addComponent(life);
             player.addComponent(velocity);
             player.addComponent(side);
-
+            player.addComponent(input);
+            player.addComponent(shoot);
             GameObjects.Add(player);
             
 
         }
+        public void createMissile(Entity entity)
+        {
+            PositionComponent entityPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
+            ImageComponent entityImage = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
+            SideComponent entitySide = (SideComponent)entity.GetComponent(typeof(SideComponent));
+
+            Entity missile = new Entity();
+            MissileComponent missileComponent = new MissileComponent();
+            ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.shoot1);
+            HitboxComponent hitbox = new HitboxComponent(image.Image);
+            PositionComponent position = new PositionComponent(entityPosition.PositionX + entityImage.Image.Width / 2, entityPosition.PositionY);
+            HealthComponent life = new HealthComponent(1);
+            VelocityComponent velocity = new VelocityComponent(0, 0, 0);
+            if(entitySide.Side == EntitySide.Side.Ally)            
+                velocity.VelocityY =-100;
+            else if (entitySide.Side == EntitySide.Side.Enemy)
+                velocity.VelocityY = 100;
+            SideComponent side = new SideComponent(entitySide.Side);
+            OnCollisionComponent collision = new OnCollisionComponent();
+            missile.addComponent(missileComponent);
+            missile.addComponent(image);
+            missile.addComponent(hitbox);
+            missile.addComponent(position);
+            missile.addComponent(life);
+            missile.addComponent(velocity);
+            missile.addComponent(side);
+            missile.addComponent(collision);
+
+            GameObjects.Add(missile);
+            
+
+        }
+
     }
 }

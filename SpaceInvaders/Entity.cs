@@ -19,9 +19,16 @@ namespace SpaceInvaders
             components.Add(component);
         }
 
-        public void removeComponent(Component component)
+        public void removeComponent(Type componentType)
         {
-            components.Remove(component);
+            foreach (Component component in components)
+            {
+                if (component.GetType() == componentType)
+                {
+                    components.Remove(component);
+                    return;
+                }
+            }
         }
 
         public Component GetComponent(Type componentType)

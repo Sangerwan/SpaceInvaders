@@ -59,8 +59,9 @@ namespace SpaceInvaders
             Graphics g = bg.Graphics;
             g.Clear(Color.White);
 
-            gameEngine.Draw(g);
-
+            //gameEngine.Draw(g);
+            RenderSystem render = (RenderSystem)gameEngine.systemManager.GetSystem(typeof(RenderSystem));
+            render.update(gameEngine, g);
             bg.Render();
             bg.Dispose();
 
@@ -100,9 +101,9 @@ namespace SpaceInvaders
         /// <param name="e"></param>
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
-            gameEngine.keyPressed.Add(e.KeyCode);
+            //gameEngine.keyPressed.Add(e.KeyCode);
             InputSystem inputSystem = (InputSystem)gameEngine.systemManager.GetSystem(typeof(InputSystem));
-
+            inputSystem.KeyPressed.Add(e.KeyCode);
 
         }
 
@@ -113,7 +114,9 @@ namespace SpaceInvaders
         /// <param name="e"></param>
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
-            gameEngine.keyPressed.Remove(e.KeyCode);
+            InputSystem inputSystem = (InputSystem)gameEngine.systemManager.GetSystem(typeof(InputSystem));
+            inputSystem.KeyPressed.Remove(e.KeyCode);
+            //gameEngine.keyPressed.Remove(e.KeyCode);
         }
 
         #endregion

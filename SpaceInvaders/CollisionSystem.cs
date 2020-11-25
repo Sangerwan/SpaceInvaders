@@ -8,11 +8,20 @@ namespace SpaceInvaders
     class CollisionSystem:GameSystem
     {       
 
-        /*public CollisionSystem(HashSet<Entity> entities)
-        {
-            this.Entities = entities;
-        }*/
-        public void update(GameEngine gameEngine)
+        public CollisionSystem(GameEngine gameEngine)
+        {            
+            /*HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
+            HashSet<Entity> collidableEntities = new HashSet<Entity>();
+            foreach (Entity entity in entities)
+            {
+                if (entity.GetComponent(typeof(OnCollisionComponent)) != null)
+                    collidableEntities.Add(entity);
+            }
+            this.Entities = collidableEntities;*/
+        }
+
+        
+        public void update2(GameEngine gameEngine)
         {
             HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
             foreach(Entity a in entities)
@@ -58,7 +67,7 @@ namespace SpaceInvaders
             bool AIsRightOfB = positionA.PositionX > positionB.PositionX + hitboxB.Size.Width;
             bool AIsAboveB = positionA.PositionY + hitboxA.Size.Height < positionB.PositionY;
             bool AIsBelowB = positionA.PositionY > positionB.PositionY + hitboxB.Size.Height;
-            return AIsLeftOfB || AIsRightOfB || AIsAboveB || AIsBelowB;
+            return !(AIsLeftOfB || AIsRightOfB || AIsAboveB || AIsBelowB);
         }
 
         void ImagePixelCollisionTest(GameEngine gameEngine, Entity a, Entity b)
@@ -75,19 +84,20 @@ namespace SpaceInvaders
 
             if (collision == null) return;
 
-            for (int i = 0; i < imageA.Image.Height; i++)
+            for (int j = 0; j < imageA.Image.Height; j++)
             {
-                for (int j = 0; j < imageA.Image.Width; j++)
+                for (int i = 0; i < imageA.Image.Width; i++)
                 {
-                    int x = (int)(positionA.PositionX + j - positionB.PositionX);
-                    int y = (int)(positionA.PositionY + i - positionB.PositionY);
+                    int x = (int)(positionA.PositionX + i - positionB.PositionX);
+                    int y = (int)(positionA.PositionY + j - positionB.PositionY);
                     if (!(x < 0 || y < 0 || x >= imageB.Image.Width || y >= imageB.Image.Height))
                     {
                         //black
-                        if (imageA.Image.GetPixel(i, j)== Color.FromArgb(0, 0, 0, 0) &&
-                                imageB.Image.GetPixel(x, y)== Color.FromArgb(0, 0, 0, 0))
+                        
+                        if (imageA.Image.GetPixel(i, j)== Color.FromArgb(255, 0, 0, 0) &&
+                                imageB.Image.GetPixel(x, y)!= Color.FromArgb(0, 255, 255, 255))
                         {
-                            collision(a, b, x, y);
+                            collision(a, b, x, y);//??
                             
                             HealthComponent aHp = (HealthComponent)a.GetComponent(typeof(HealthComponent));
                             HealthComponent bHp = (HealthComponent)b.GetComponent(typeof(HealthComponent));
@@ -129,6 +139,55 @@ namespace SpaceInvaders
             HealthComponent spaceShipHp = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
 
             spaceShipHp.Life--;
+        }
+
+        public override void update(GameEngine gameEngine, double deltaT)
+        {
+            HashSet<Entity> collidableEntities = getEntities(gameEngine);
+            foreach (Entity missile in collidableEntities)
+            {
+                if (missile.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm
+                HitboxComponent missileHitbox = (HitboxComponent)missile.GetComponent(typeof(HitboxComponent));
+                if (missileHitbox != null)
+                {
+                    PositionComponent missilePosition = (PositionComponent)missile.GetComponent(typeof(PositionComponent));
+                    EntitySide.Side missileSide = ((SideComponent)missile.GetComponent(typeof(SideComponent))).Side;
+                    foreach (Entity entity in collidableEntities)
+                    {
+                        if (entity == missile) continue;
+
+                        EntitySide.Side entitySide = ((SideComponent)entity.GetComponent(typeof(SideComponent))).Side;
+                        if (missileSide == entitySide) continue;
+
+                        HitboxComponent entityHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
+                        if (entityHitbox == null) continue;
+
+                        PositionComponent entityPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
+                        if (entityPosition == null) continue;
+
+                        if (TestHitboxCollision(missilePosition, missileHitbox, entityPosition, entityHitbox))
+                        {
+                            ImageComponent missileImage = (ImageComponent)missile.GetComponent(typeof(ImageComponent));
+                            ImageComponent entityImage = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
+                            if (missileImage == null || entityImage == null) continue;
+
+                            ImagePixelCollisionTest(gameEngine, missile, entity);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
+        {
+            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
+            HashSet<Entity> collidableEntities = new HashSet<Entity>();
+            foreach (Entity entity in entities)
+            {
+                if (entity.GetComponent(typeof(HitboxComponent)) != null)
+                    collidableEntities.Add(entity);
+            }
+            return collidableEntities;
         }
     }
 }

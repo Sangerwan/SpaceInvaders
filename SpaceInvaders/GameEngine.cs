@@ -31,8 +31,8 @@ namespace SpaceInvaders
         /// </summary>
         public HashSet<Keys> keyPressed = new HashSet<Keys>();
 
-        enum GameState { Play, Pause, Win, Loose , Menu};
-        GameState state;
+        
+        GameState.state gameState;
 
         
 
@@ -48,6 +48,7 @@ namespace SpaceInvaders
         /// Singleton for easy access
         /// </summary>
         public static GameEngine game { get; private set; }
+        public GameState.state currentGameState { get => gameState; set => gameState = value; }
 
         /// <summary>
         /// A shared black brush
@@ -80,7 +81,7 @@ namespace SpaceInvaders
         /// </summary>
         public void Init()
         {
-            
+            gameState = GameState.state.Play;
             entityManager = new EntityManager(this);
             //entityManager.Init(this);
             systemManager = new SystemManager(this);
@@ -99,6 +100,8 @@ namespace SpaceInvaders
 
         #region methods
 
+
+
         /// <summary>
         /// Force a given key to be ignored in following updates until the user
         /// explicitily retype it or the system autofires it again.
@@ -110,20 +113,20 @@ namespace SpaceInvaders
         }
 
 
-        /// <summary>
+        /*/// <summary>
         /// Draw the whole game
         /// </summary>
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            if (state == GameState.Pause)
+            if (state == SpaceInvaders.GameState.Pause)
                 g.DrawString("pause", defaultFont, blackBrush, 0, 0);
 
             renderSystem = systemManager.get
             systemManager.update(this, g);
-            /*foreach (GameObject gameObject in gameObjects)
-                gameObject.Draw(this, g);       */
-        }
+            *//*foreach (GameObject gameObject in gameObjects)
+                gameObject.Draw(this, g);       *//*
+        }*/
         
 
         /// <summary>
@@ -131,19 +134,22 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
+            Console.WriteLine(gameState);
+            systemManager.update(this, deltaT);
+            return;
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
 
             if (keyPressed.Contains(Keys.P))
             {                
-                if (state == GameState.Play)
-                    state = GameState.Pause;
-                else if (state == GameState.Pause)
-                    state = GameState.Play;
+                if (gameState == GameState.state.Play)
+                    gameState = SpaceInvaders.GameState.state.Pause;
+                else if (gameState == SpaceInvaders.GameState.state.Pause)
+                    gameState = SpaceInvaders.GameState.state.Play;
                 ReleaseKey(Keys.P);
             }
-            if (state == GameState.Pause)
+            if (gameState == SpaceInvaders.GameState.state.Pause)
             {
                 //pause
                 return;
