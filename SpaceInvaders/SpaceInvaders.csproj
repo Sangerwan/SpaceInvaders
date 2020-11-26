@@ -50,6 +50,7 @@
       <DependentUpon>Entity.cs</DependentUpon>
     </Compile>
     <Compile Include="CanShootComponent.cs" />
+    <Compile Include="DeathSystem.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InputComponent.cs" />
     <Compile Include="OnCollisionComponent.cs">
@@ -92,6 +93,7 @@
     <Compile Include="dOnCollisionMissileComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
+    <Compile Include="OnDeathComponent.cs" />
     <Compile Include="PlayerComponent.cs">
       <DependentUpon>Entity.cs</DependentUpon>
     </Compile>

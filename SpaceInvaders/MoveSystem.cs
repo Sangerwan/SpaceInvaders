@@ -29,8 +29,25 @@ namespace SpaceInvaders
 
                 position.PositionX += velocity.VelocityX * deltaT;
                 position.PositionY += velocity.VelocityY * deltaT;
-                if (position.PositionY < 0) 
-                    gameEngine.entityManager.GameObjects.Remove(entity);
+
+                HitboxComponent hitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
+
+                if (position.PositionY < 0 || position.PositionY + hitbox.Size.Height > gameEngine.gameSize.Height||
+                    position.PositionX < 0 || position.PositionX+hitbox.Size.Width > gameEngine.gameSize.Width)
+                {
+                    if (entity.GetComponent(typeof(MissileComponent)) != null)
+                    {
+                        HealthComponent health = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
+                        health.Life = 0;
+                    }
+                    else
+                    {
+                        position.PositionX -= velocity.VelocityX * deltaT;
+                        position.PositionY -= velocity.VelocityY * deltaT;
+                    }
+                }
+
+                    
             }
         }
         protected override HashSet<Entity> getEntities(GameEngine gameEngine)

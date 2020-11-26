@@ -26,23 +26,34 @@ namespace SpaceInvaders
             HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
             foreach(Entity a in entities)
             {
-                if (a.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm
-                HitboxComponent hitboxA =(HitboxComponent) a.GetComponent(typeof(HitboxComponent));
+                if (a.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm                
+
+                HealthComponent healthA = (HealthComponent)a.GetComponent(typeof(HealthComponent));
+                if (healthA == null || healthA.Life <= 0) continue;
+
+                HitboxComponent hitboxA = (HitboxComponent)a.GetComponent(typeof(HitboxComponent));
                 if (hitboxA != null)
                 {
                     PositionComponent positionA = (PositionComponent)a.GetComponent(typeof(PositionComponent));
-                    EntitySide.Side aSide = ((SideComponent)a.GetComponent(typeof(SideComponent))).Side;
+                    EntitySide.Side sideA = ((SideComponent)a.GetComponent(typeof(SideComponent))).Side;
                     foreach (Entity b in entities)
                     {
                         if (b == a) continue;
 
-                        EntitySide.Side bSide = ((SideComponent)b.GetComponent(typeof(SideComponent))).Side;
-                        if (aSide == bSide) continue;
+                        HealthComponent healthB = (HealthComponent)b.GetComponent(typeof(HealthComponent));
+                        if (healthB == null || healthB.Life <= 0) continue;
 
                         HitboxComponent hitboxB = (HitboxComponent)b.GetComponent(typeof(HitboxComponent));
                         if (hitboxB == null) continue;
-                        
+
                         PositionComponent positionB = (PositionComponent)b.GetComponent(typeof(PositionComponent));
+                        if (positionB == null) continue;
+
+                        EntitySide.Side sideB = ((SideComponent)b.GetComponent(typeof(SideComponent))).Side;
+                        if (sideA == sideB) continue;
+                        
+                        
+                        
                         if (TestHitboxCollision(positionA, hitboxA, positionB, hitboxB)) 
                         {                            
                             ImageComponent imageA = (ImageComponent)a.GetComponent(typeof(ImageComponent));
@@ -83,7 +94,8 @@ namespace SpaceInvaders
             if (b.GetComponent(typeof(SpaceShipComponent)) != null) collision = OnCollisionSpaceShip;
 
             if (collision == null) return;
-
+            HealthComponent aHp = (HealthComponent)a.GetComponent(typeof(HealthComponent));
+            HealthComponent bHp = (HealthComponent)b.GetComponent(typeof(HealthComponent));
             for (int j = 0; j < imageA.Image.Height; j++)
             {
                 for (int i = 0; i < imageA.Image.Width; i++)
@@ -92,21 +104,20 @@ namespace SpaceInvaders
                     int y = (int)(positionA.PositionY + j - positionB.PositionY);
                     if (!(x < 0 || y < 0 || x >= imageB.Image.Width || y >= imageB.Image.Height))
                     {
-                        //black
                         
+                        if (aHp.Life <= 0 || bHp.Life <= 0)
+                        {
+                            /*if (aHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(a);
+                            if (bHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(b);*/
+                            return;
+                        }
+
                         if (imageA.Image.GetPixel(i, j)== Color.FromArgb(255, 0, 0, 0) &&
                                 imageB.Image.GetPixel(x, y)!= Color.FromArgb(0, 255, 255, 255))
                         {
-                            collision(a, b, x, y);//??
                             
-                            HealthComponent aHp = (HealthComponent)a.GetComponent(typeof(HealthComponent));
-                            HealthComponent bHp = (HealthComponent)b.GetComponent(typeof(HealthComponent));
-                            if(aHp.Life<=0 || bHp.Life <= 0)
-                            {
-                                if (aHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(a);
-                                if (bHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(b);
-                                return;
-                            }
+                            collision(a, b, x, y);                            
+                            
                         }
                     }
                 }
@@ -137,7 +148,8 @@ namespace SpaceInvaders
         void OnCollisionSpaceShip(Entity missile, Entity spaceShip, int x, int y)
         {
             HealthComponent spaceShipHp = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
-
+            HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
+            missileHp.Life = 0;
             spaceShipHp.Life--;
         }
 

@@ -58,6 +58,19 @@ namespace SpaceInvaders
                 
                 InputComponent input = (InputComponent)entity.GetComponent(typeof(InputComponent));
                 VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+
+                velocity.VelocityY = 0;
+                velocity.VelocityX = 0;
+                foreach (Keys key in input.Input.Keys)
+                {
+                    if (KeyPressed.Contains(key))
+                    {
+                        input.Input[key](entity);
+                    }
+                }
+/*
+                VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+
                 velocity.VelocityY = 0;
                 velocity.VelocityX = 0;
                 if (KeyPressed.Contains(Keys.Up)) Console.WriteLine("up");
@@ -75,7 +88,7 @@ namespace SpaceInvaders
                 {
                     gameEngine.entityManager.createMissile(entity);
                     //entity.removeComponent(typeof(CanShootComponent));
-                }
+                }*/
             }
 
         }

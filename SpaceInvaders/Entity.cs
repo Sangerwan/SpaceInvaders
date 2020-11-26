@@ -14,9 +14,13 @@ namespace SpaceInvaders
             this.components = new HashSet<Component>();
         }
 
-        public void addComponent(Component component)
+        public void addComponent(params Component[] componentList)
         {
-            components.Add(component);
+            foreach (Component component in componentList)
+            {
+                components.Add(component);
+            }
+            
         }
 
         public void removeComponent(Type componentType)

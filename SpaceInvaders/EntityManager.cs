@@ -11,10 +11,10 @@ namespace SpaceInvaders
 
         public HashSet<Entity> GameObjects { get => gameObjects; set => gameObjects = value; }
 
-        
+
         public EntityManager(GameEngine gameEngine)
         {
-            this.GameObjects= new HashSet<Entity>();
+            this.GameObjects = new HashSet<Entity>();
 
             #region testo
             {
@@ -73,7 +73,7 @@ namespace SpaceInvaders
             PositionComponent bunkerPosition = new PositionComponent(positionX, positionY);
             SideComponent bunkerSide = new SideComponent(EntitySide.Side.Neutral);
             HealthComponent health = new HealthComponent(1000);
-            
+
 
             bunker.addComponent(bunkerComp);
             bunker.addComponent(bunkerImage);
@@ -86,33 +86,67 @@ namespace SpaceInvaders
         }
         void InitEnemy(GameEngine gameEngine)
         {
-            
+
         }
 
         void InitPlayer(GameEngine gameEngine)
         {
             Entity player = new Entity();
-            PlayerComponent isPlayer = new PlayerComponent();
-            ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
-            HitboxComponent hitbox = new HitboxComponent(image.Image);
-            PositionComponent position = new PositionComponent(0, gameEngine.gameSize.Height - 50);
-            HealthComponent life = new HealthComponent(3);
-            VelocityComponent velocity = new VelocityComponent(0, 0, 0);
-            SideComponent side = new SideComponent(EntitySide.Side.Ally);
-            InputComponent input = new InputComponent();
-            CanShootComponent shoot = new CanShootComponent();
-            player.addComponent(isPlayer);
-            player.addComponent(image);
-            player.addComponent(hitbox);
-            player.addComponent(position);
-            player.addComponent(life);
-            player.addComponent(velocity);
-            player.addComponent(side);
-            player.addComponent(input);
-            player.addComponent(shoot);
-            GameObjects.Add(player);
-            
+            PlayerComponent playerComponent = new PlayerComponent();
+            ImageComponent imageComponent = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
+            HitboxComponent hitboxComponent = new HitboxComponent(imageComponent.Image);
+            PositionComponent positionComponent = new PositionComponent(0, gameEngine.gameSize.Height - 50);
+            HealthComponent healthComponent = new HealthComponent(3);
+            VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);
+            SideComponent sideComponent = new SideComponent(EntitySide.Side.Ally);
+            InputComponent inputComponent = new InputComponent();
+            inputComponent.Input.Add(System.Windows.Forms.Keys.Up, 
+                entity => 
+                { 
+                    VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent)); 
+                    velocity.VelocityY -= 100; 
+                });
+            inputComponent.Input.Add(System.Windows.Forms.Keys.Down,
+                entity => 
+                {
+                    VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+                    velocity.VelocityY += 100;
+                });
+            inputComponent.Input.Add(System.Windows.Forms.Keys.Left,
+                entity => 
+                {
+                    VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+                    velocity.VelocityX -= 100;
+                });
+            inputComponent.Input.Add(System.Windows.Forms.Keys.Right,
+                entity => 
+                {
+                    VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+                    velocity.VelocityX += 100;
+                });
+            inputComponent.Input.Add(System.Windows.Forms.Keys.Space, 
+                entity =>
+                {
+                    if (entity.GetComponent(typeof(CanShootComponent)) != null)
+                    {
+                        createMissile(entity);
+                        entity.removeComponent(typeof(CanShootComponent));
+                    }
+                    
+                }
+                );
 
+            CanShootComponent canShootComponent = new CanShootComponent();
+            player.addComponent(playerComponent);
+            player.addComponent(imageComponent);
+            player.addComponent(hitboxComponent);
+            player.addComponent(positionComponent);
+            player.addComponent(healthComponent);
+            player.addComponent(velocityComponent);
+            player.addComponent(sideComponent);
+            player.addComponent(inputComponent);
+            player.addComponent(canShootComponent);
+            GameObjects.Add(player);
         }
         public void createMissile(Entity entity)
         {
@@ -125,10 +159,11 @@ namespace SpaceInvaders
             ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.shoot1);
             HitboxComponent hitbox = new HitboxComponent(image.Image);
             PositionComponent position = new PositionComponent(entityPosition.PositionX + entityImage.Image.Width / 2, entityPosition.PositionY);
-            HealthComponent life = new HealthComponent(1);
+            HealthComponent life = new HealthComponent(15);
             VelocityComponent velocity = new VelocityComponent(0, 0, 0);
-            if(entitySide.Side == EntitySide.Side.Ally)            
-                velocity.VelocityY =-100;
+            OnDeathComponent onDeathComponent = new OnDeathComponent(() => entity.addComponent(new CanShootComponent()));
+            if (entitySide.Side == EntitySide.Side.Ally)
+                velocity.VelocityY = -100;
             else if (entitySide.Side == EntitySide.Side.Enemy)
                 velocity.VelocityY = 100;
             SideComponent side = new SideComponent(entitySide.Side);
@@ -141,9 +176,10 @@ namespace SpaceInvaders
             missile.addComponent(velocity);
             missile.addComponent(side);
             missile.addComponent(collision);
+            missile.addComponent(onDeathComponent);
 
             GameObjects.Add(missile);
-            
+
 
         }
 

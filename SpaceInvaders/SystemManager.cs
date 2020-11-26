@@ -22,9 +22,11 @@ namespace SpaceInvaders
             MoveSystem moveSystem = new MoveSystem(gameEngine);
             CollisionSystem collisionSystem = new CollisionSystem(gameEngine);
             RenderSystem renderSystem = new RenderSystem(gameEngine);
+            DeathSystem deathSystem = new DeathSystem(gameEngine);
             systems.Add(inputSystem);
             systems.Add(moveSystem);
             systems.Add(collisionSystem);
+            systems.Add(deathSystem);
             systems.Add(renderSystem);
         }
         void InitInput(GameEngine gameEngine)
