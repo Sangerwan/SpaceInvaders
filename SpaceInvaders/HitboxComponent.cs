@@ -21,5 +21,9 @@ namespace SpaceInvaders
         }
 
         public Size Size { get => size; set => size = value; }
+
+        public int Height { get => size.Height; set => size.Height = value; }
+
+        public int Width { get => size.Width; set => size.Width = value; }
     }
 }

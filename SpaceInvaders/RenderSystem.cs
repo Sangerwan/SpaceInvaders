@@ -31,6 +31,8 @@ namespace SpaceInvaders
 
         public void update(GameEngine gameEngine, Graphics graphics)
         {
+            
+            
             if (gameEngine.currentGameState == GameState.state.Pause)
                 graphics.DrawString("pause", defaultFont, blackBrush, 0, 0);
 
@@ -44,6 +46,34 @@ namespace SpaceInvaders
                 if (position == null || image == null) return;
 
                 graphics.DrawImage(image.Image, (float)position.PositionX, (float)position.PositionY, image.Image.Width, image.Image.Height);
+
+                
+            }
+            {
+                foreach (Entity entity in gameEngine.entityManager.GameObjects)
+                    if (entity.GetComponent(typeof(EnemyBlockComponent)) != null)
+                    {
+                        // Create a new pen.
+                        Pen skyBluePen = new Pen(Brushes.DeepSkyBlue);
+
+                        // Set the pen's width.
+                        skyBluePen.Width = 4.0F;
+
+                        // Set the LineJoin property.
+                        skyBluePen.LineJoin = System.Drawing.Drawing2D.LineJoin.Bevel;
+                        HitboxComponent enemyBlockHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
+                        PositionComponent enemyBlockPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
+
+                        graphics.DrawRectangle(skyBluePen,
+                            new Rectangle(40, 40, 20, 20));
+                        // Draw a rectangle.
+                        graphics.DrawRectangle(skyBluePen,
+                            new Rectangle((int)enemyBlockPosition.PositionX, (int)enemyBlockPosition.PositionY, enemyBlockHitbox.Width, enemyBlockHitbox.Height));
+
+                        //Dispose of the pen.
+                        skyBluePen.Dispose();
+
+                    }
             }
         }
 

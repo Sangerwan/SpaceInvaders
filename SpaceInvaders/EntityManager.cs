@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Drawing;
 namespace SpaceInvaders
 {
     class EntityManager
@@ -18,7 +18,7 @@ namespace SpaceInvaders
 
             #region testo
             {
-                Entity player = new Entity();
+               /* Entity player = new Entity();
                 ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
                 PositionComponent position = new PositionComponent(0, 0);
                 HealthComponent life = new HealthComponent(1);
@@ -38,7 +38,7 @@ namespace SpaceInvaders
 
 
 
-                GameObjects.Add(player);
+                GameObjects.Add(player);*/
             }
             Init(gameEngine);
             #endregion
@@ -86,19 +86,70 @@ namespace SpaceInvaders
         }
         void InitEnemy(GameEngine gameEngine)
         {
+            Entity enemyBlock = new Entity();
+            HitboxComponent enemyBlockHitbox = new HitboxComponent(gameEngine.gameSize.Width,0);
+            PositionComponent enemyBlockPosition = new PositionComponent(0, 0);
+            VelocityComponent enemyBlockVelocity = new VelocityComponent(50, 0);
 
+            EnemyBlockComponent enemyBlockComponent = new EnemyBlockComponent();
+
+            enemyBlock.addComponent(enemyBlockHitbox, enemyBlockPosition, enemyBlockVelocity, enemyBlockComponent);
+            AddEnemyLine(enemyBlock, 5, SpaceInvaders.Properties.Resources.ship9);
+            AddEnemyLine(enemyBlock, 4, SpaceInvaders.Properties.Resources.ship8);
+            AddEnemyLine(enemyBlock, 5, SpaceInvaders.Properties.Resources.ship7);
+            AddEnemyLine(enemyBlock, 4, SpaceInvaders.Properties.Resources.ship6);
+            AddEnemyLine(enemyBlock, 6, SpaceInvaders.Properties.Resources.ship5);
+            AddEnemyLine(enemyBlock, 3, SpaceInvaders.Properties.Resources.ship4);
+            AddEnemyLine(enemyBlock, 4, SpaceInvaders.Properties.Resources.ship2);
+            AddEnemyLine(enemyBlock, 5, SpaceInvaders.Properties.Resources.ship1);
+            gameObjects.Add(enemyBlock);
+        }
+
+        public void AddEnemyLine(Entity enemyBlock, int nbShips, Bitmap shipImage, int nbLives = 3)
+        {
+            HitboxComponent enemyBlockHitbox = (HitboxComponent)enemyBlock.GetComponent(typeof(HitboxComponent));
+            PositionComponent enemyBlockPosition = (PositionComponent)enemyBlock.GetComponent(typeof(PositionComponent));
+
+            int baseWidth = enemyBlockHitbox.Width;
+            int baseHeight = enemyBlockHitbox.Height;
+            for (int i = 0; i < nbShips; i++)
+            {
+                
+                Entity spaceShip = createSpaceShip(shipImage, EntitySide.Side.Enemy,  ((double)i / nbShips) * baseWidth + (baseWidth / nbShips - shipImage.Width) / 2,baseHeight);
+                
+                gameObjects.Add(spaceShip);
+            }
+
+            enemyBlockHitbox.Height += shipImage.Height + 5;
+
+
+        }
+
+        Entity createSpaceShip(Bitmap image, EntitySide.Side side, double positionX=0, double positionY=0, int health=3)
+        {
+            Entity spaceShip = new Entity();
+            SpaceShipComponent spaceShipComponent = new SpaceShipComponent();
+            ImageComponent imageComponent = new ImageComponent(image);
+            HitboxComponent hitboxComponent = new HitboxComponent(imageComponent.Image);
+            PositionComponent positionComponent = new PositionComponent(positionX,positionY);
+            HealthComponent healthComponent = new HealthComponent(health);
+            VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);
+            SideComponent sideComponent = new SideComponent(side);
+            CanShootComponent canShootComponent = new CanShootComponent();
+            spaceShip.addComponent(imageComponent, hitboxComponent, positionComponent, healthComponent, velocityComponent, sideComponent, canShootComponent, spaceShipComponent);
+            return spaceShip;
         }
 
         void InitPlayer(GameEngine gameEngine)
         {
-            Entity player = new Entity();
+            Entity player = createSpaceShip(SpaceInvaders.Properties.Resources.ship3, EntitySide.Side.Ally,0, gameEngine.gameSize.Height - 50);
             PlayerComponent playerComponent = new PlayerComponent();
-            ImageComponent imageComponent = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
+            /*ImageComponent imageComponent = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
             HitboxComponent hitboxComponent = new HitboxComponent(imageComponent.Image);
             PositionComponent positionComponent = new PositionComponent(0, gameEngine.gameSize.Height - 50);
             HealthComponent healthComponent = new HealthComponent(3);
             VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);
-            SideComponent sideComponent = new SideComponent(EntitySide.Side.Ally);
+            SideComponent sideComponent = new SideComponent(EntitySide.Side.Ally);*/
             InputComponent inputComponent = new InputComponent();
             inputComponent.Input.Add(System.Windows.Forms.Keys.Up, 
                 entity => 
@@ -136,16 +187,17 @@ namespace SpaceInvaders
                 }
                 );
 
-            CanShootComponent canShootComponent = new CanShootComponent();
+            //CanShootComponent canShootComponent = new CanShootComponent();
             player.addComponent(playerComponent);
-            player.addComponent(imageComponent);
+            /*player.addComponent(imageComponent);
             player.addComponent(hitboxComponent);
             player.addComponent(positionComponent);
             player.addComponent(healthComponent);
             player.addComponent(velocityComponent);
-            player.addComponent(sideComponent);
-            player.addComponent(inputComponent);
             player.addComponent(canShootComponent);
+            player.addComponent(sideComponent);*/
+            player.addComponent(inputComponent);
+            
             GameObjects.Add(player);
         }
         public void createMissile(Entity entity)

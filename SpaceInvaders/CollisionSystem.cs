@@ -168,8 +168,8 @@ namespace SpaceInvaders
                     {
                         if (entity == missile) continue;
 
-                        EntitySide.Side entitySide = ((SideComponent)entity.GetComponent(typeof(SideComponent))).Side;
-                        if (missileSide == entitySide) continue;
+                        SideComponent entitySide = (SideComponent)entity.GetComponent(typeof(SideComponent));
+                        if (entitySide==null||missileSide == entitySide.Side) continue;
 
                         HitboxComponent entityHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
                         if (entityHitbox == null) continue;
