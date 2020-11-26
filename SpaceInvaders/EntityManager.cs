@@ -18,15 +18,15 @@ namespace SpaceInvaders
 
             #region testo
             {
-               /* Entity player = new Entity();
+               /*Entity player = new Entity();
                 ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.ship3);
-                PositionComponent position = new PositionComponent(0, 0);
+                PositionComponent position = new PositionComponent(500, 500);
                 HealthComponent life = new HealthComponent(1);
                 VelocityComponent velocity = new VelocityComponent(0, 0, 0);
                 SideComponent side = new SideComponent(EntitySide.Side.Enemy);
                 HitboxComponent collision = new HitboxComponent(image.Image);
                 SpaceShipComponent spaceShip = new SpaceShipComponent();
-
+                CanShootComponent shoot = new CanShootComponent();
                 player.addComponent(image);
                 player.addComponent(position);
                 player.addComponent(life);
@@ -34,6 +34,7 @@ namespace SpaceInvaders
                 player.addComponent(side);
                 player.addComponent(collision);
                 player.addComponent(spaceShip);
+                player.addComponent(shoot);
 
 
 
@@ -94,6 +95,7 @@ namespace SpaceInvaders
             EnemyBlockComponent enemyBlockComponent = new EnemyBlockComponent();
 
             enemyBlock.addComponent(enemyBlockHitbox, enemyBlockPosition, enemyBlockVelocity, enemyBlockComponent);
+            //AddEnemyLine(enemyBlock, 1, SpaceInvaders.Properties.Resources.ship8);
             AddEnemyLine(enemyBlock, 5, SpaceInvaders.Properties.Resources.ship9);
             AddEnemyLine(enemyBlock, 4, SpaceInvaders.Properties.Resources.ship8);
             AddEnemyLine(enemyBlock, 5, SpaceInvaders.Properties.Resources.ship7);

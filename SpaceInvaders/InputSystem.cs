@@ -52,6 +52,14 @@ namespace SpaceInvaders
                     gameEngine.currentGameState = GameState.state.Play;
                 ReleaseKey(Keys.P);
             }
+
+            if(gameEngine.currentGameState == GameState.state.Win
+                || gameEngine.currentGameState == GameState.state.Loose)
+            {
+                if(KeyPressed.Contains(Keys.Space))
+                    gameEngine.Init();
+                
+            }
             HashSet<Entity> inputableEntities = getEntities(gameEngine);
             foreach (Entity entity in inputableEntities)// only 1 player atm
             {

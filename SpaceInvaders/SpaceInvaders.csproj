@@ -57,6 +57,7 @@
       <DependentUpon>GameSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="EnemyBlockComponent.cs" />
+    <Compile Include="EnemyShootSystem.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameSystem.cs" />
     <Compile Include="InputComponent.cs">
@@ -125,6 +126,9 @@
     <Compile Include="SystemManager.cs" />
     <Compile Include="VelocityComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinLooseSystem.cs">
+      <DependentUpon>GameSystem.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

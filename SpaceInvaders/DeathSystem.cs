@@ -26,7 +26,9 @@ namespace SpaceInvaders
                     entities.Remove(entity);
                 }
             }
+            
         }
+
         protected override HashSet<Entity> getEntities(GameEngine gameEngine)
         {
             HashSet<Entity> entities = gameEngine.entityManager.GameObjects;

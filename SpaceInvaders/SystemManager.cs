@@ -19,14 +19,18 @@ namespace SpaceInvaders
         void InitSystem(GameEngine gameEngine)
         {
             InputSystem inputSystem = new InputSystem(gameEngine);
+            EnemyShootSystem enemyShootSystem = new EnemyShootSystem(gameEngine);
             MoveSystem moveSystem = new MoveSystem(gameEngine);
             CollisionSystem collisionSystem = new CollisionSystem(gameEngine);
             RenderSystem renderSystem = new RenderSystem(gameEngine);
             DeathSystem deathSystem = new DeathSystem(gameEngine);
+            WinLooseSystem winLooseSystem = new WinLooseSystem(gameEngine);
             systems.Add(inputSystem);
+            systems.Add(enemyShootSystem);
             systems.Add(moveSystem);
             systems.Add(collisionSystem);
             systems.Add(deathSystem);
+            systems.Add(winLooseSystem);
             systems.Add(renderSystem);
         }
         void InitInput(GameEngine gameEngine)

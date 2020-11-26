@@ -148,7 +148,8 @@ namespace SpaceInvaders
                 {
                     if (side.Side == EntitySide.Side.Enemy)
                     {
-                        enemyList.Add(entity);
+                        if(entity.GetComponent(typeof(SpaceShipComponent))!=null)
+                            enemyList.Add(entity);
                     }
                 }
             }

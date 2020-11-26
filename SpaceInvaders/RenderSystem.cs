@@ -36,6 +36,18 @@ namespace SpaceInvaders
             if (gameEngine.currentGameState == GameState.state.Pause)
                 graphics.DrawString("pause", defaultFont, blackBrush, 0, 0);
 
+            if (gameEngine.currentGameState == GameState.state.Loose)
+            {
+                graphics.DrawString("Loose", defaultFont, blackBrush, 0, 0);
+                return;
+            }               
+
+            if (gameEngine.currentGameState == GameState.state.Win)
+            {
+                graphics.DrawString("Win", defaultFont, blackBrush, 0, 0);
+                return;
+            }
+                
             HashSet<Entity> renderableEntities = getEntities(gameEngine);
 
             foreach (Entity entity in renderableEntities)
@@ -64,8 +76,7 @@ namespace SpaceInvaders
                         HitboxComponent enemyBlockHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
                         PositionComponent enemyBlockPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
 
-                        graphics.DrawRectangle(skyBluePen,
-                            new Rectangle(40, 40, 20, 20));
+                        
                         // Draw a rectangle.
                         graphics.DrawRectangle(skyBluePen,
                             new Rectangle((int)enemyBlockPosition.PositionX, (int)enemyBlockPosition.PositionY, enemyBlockHitbox.Width, enemyBlockHitbox.Height));
@@ -75,6 +86,20 @@ namespace SpaceInvaders
 
                     }
             }
+        }
+
+        int getPlayerLife(GameEngine gameEngine)
+        {
+            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
+            foreach (Entity entity in entities)
+            {
+                if (entity.GetComponent(typeof(PlayerComponent)) != null)
+                {
+                    HealthComponent playerHealth = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
+                    return playerHealth.Life;
+                }
+            }
+            return 0;// probably dead
         }
 
         protected override HashSet<Entity> getEntities(GameEngine gameEngine)
@@ -88,9 +113,9 @@ namespace SpaceInvaders
             }
             return renderableEntities;
         }
-        public override void update(GameEngine gameEngine, double deltaT)
+/*        public override void update(GameEngine gameEngine, double deltaT)
         {
             
-        }
+        }*/
     }
 }
