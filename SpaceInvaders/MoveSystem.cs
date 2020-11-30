@@ -36,7 +36,7 @@ namespace SpaceInvaders
             
             foreach (Entity entity in movableEntities)
             {
-                if (entity.GetComponent(typeof(EnemyBlockComponent)) != null) continue;
+                //if (entity.GetComponent(typeof(EnemyBlockComponent)) != null) continue;
                 moveEntity(entity,deltaT);
                 
                 if (outOfBonds(gameEngine, entity))
@@ -44,7 +44,7 @@ namespace SpaceInvaders
                     if (entity.GetComponent(typeof(MissileComponent)) != null)
                     {
                         HealthComponent health = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                        health.Life = 0;
+                        health.HP = 0;
                     }
                     else
                     {
@@ -63,6 +63,8 @@ namespace SpaceInvaders
 
             position.PositionX += velocity.VelocityX * deltaT;
             position.PositionY += velocity.VelocityY * deltaT;
+
+            
         }
 
         void moveBackEntity(Entity entity, double deltaT)
@@ -70,7 +72,7 @@ namespace SpaceInvaders
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
 
-
+           
             position.PositionX -= velocity.VelocityX * deltaT;
             position.PositionY -= velocity.VelocityY * deltaT;
         }

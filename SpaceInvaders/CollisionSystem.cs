@@ -29,7 +29,7 @@ namespace SpaceInvaders
                 if (a.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm                
 
                 HealthComponent healthA = (HealthComponent)a.GetComponent(typeof(HealthComponent));
-                if (healthA == null || healthA.Life <= 0) continue;
+                if (healthA == null || healthA.HP <= 0) continue;
 
                 HitboxComponent hitboxA = (HitboxComponent)a.GetComponent(typeof(HitboxComponent));
                 if (hitboxA != null)
@@ -41,7 +41,7 @@ namespace SpaceInvaders
                         if (b == a) continue;
 
                         HealthComponent healthB = (HealthComponent)b.GetComponent(typeof(HealthComponent));
-                        if (healthB == null || healthB.Life <= 0) continue;
+                        if (healthB == null || healthB.HP <= 0) continue;
 
                         HitboxComponent hitboxB = (HitboxComponent)b.GetComponent(typeof(HitboxComponent));
                         if (hitboxB == null) continue;
@@ -105,19 +105,15 @@ namespace SpaceInvaders
                     if (!(x < 0 || y < 0 || x >= imageB.Image.Width || y >= imageB.Image.Height))
                     {
                         
-                        if (aHp.Life <= 0 || bHp.Life <= 0)
+                        if (aHp.HP <= 0 || bHp.HP <= 0)
                         {
-                            /*if (aHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(a);
-                            if (bHp.Life <= 0) gameEngine.entityManager.GameObjects.Remove(b);*/
                             return;
                         }
 
                         if (imageA.Image.GetPixel(i, j)== Color.FromArgb(255, 0, 0, 0) &&
                                 imageB.Image.GetPixel(x, y)!= Color.FromArgb(0, 255, 255, 255))
-                        {
-                            
-                            collision(a, b, x, y);                            
-                            
+                        {                            
+                            collision(a, b, x, y);
                         }
                     }
                 }
@@ -132,7 +128,7 @@ namespace SpaceInvaders
             HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
 
             imageBunker.Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
-            missileHp.Life--;
+            missileHp.HP--;
         }
 
         void OnCollisionMissile(Entity missile, Entity otherMissile, int x, int y)
@@ -140,8 +136,8 @@ namespace SpaceInvaders
             HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));            
             HealthComponent otherMissileHp = (HealthComponent)otherMissile.GetComponent(typeof(HealthComponent));
 
-            missileHp.Life = 0;
-            otherMissileHp.Life = 0;
+            missileHp.HP = 0;
+            otherMissileHp.HP = 0;
             
         }
 
@@ -149,8 +145,8 @@ namespace SpaceInvaders
         {
             HealthComponent spaceShipHp = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
             HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
-            missileHp.Life = 0;
-            spaceShipHp.Life--;
+            missileHp.HP = 0;
+            spaceShipHp.HP--;
         }
 
         public override void update(GameEngine gameEngine, double deltaT)

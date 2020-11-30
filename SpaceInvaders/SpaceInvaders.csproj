@@ -56,8 +56,12 @@
     <Compile Include="DeathSystem.cs">
       <DependentUpon>GameSystem.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnemyBlockComponent.cs" />
-    <Compile Include="EnemyShootSystem.cs" />
+    <Compile Include="EnemyBlockComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnemyShootSystem.cs">
+      <DependentUpon>GameSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameState.cs" />
     <Compile Include="GameSystem.cs" />
     <Compile Include="InputComponent.cs">

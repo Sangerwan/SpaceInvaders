@@ -7,12 +7,12 @@ namespace SpaceInvaders
 {
     class HealthComponent:Component
     {
-        int life;
+        int healthPoint;
         public HealthComponent(int life)
         {
-            this.Life = life;
+            this.HP = life;
         }
 
-        public int Life { get => life; set => life = value; }
+        public int HP { get => healthPoint; set => healthPoint = value; }
     }
 }

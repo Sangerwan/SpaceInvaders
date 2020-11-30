@@ -18,7 +18,7 @@ namespace SpaceInvaders
             foreach(Entity entity in candDieEntities)
             {
                 HealthComponent health = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                if (health.Life <= 0)
+                if (health.HP <= 0)
                 {
                     OnDeathComponent ondeath = (OnDeathComponent)entity.GetComponent(typeof(OnDeathComponent));
                     if(ondeath!=null)

@@ -47,7 +47,10 @@ namespace SpaceInvaders
                 graphics.DrawString("Win", defaultFont, blackBrush, 0, 0);
                 return;
             }
-                
+
+            int life = getPlayerLife(gameEngine);
+            graphics.DrawString("life : "+life.ToString(), defaultFont, blackBrush, 0, gameEngine.gameSize.Height - 24);
+
             HashSet<Entity> renderableEntities = getEntities(gameEngine);
 
             foreach (Entity entity in renderableEntities)
@@ -62,7 +65,7 @@ namespace SpaceInvaders
                 
             }
             {
-                foreach (Entity entity in gameEngine.entityManager.GameObjects)
+                /*foreach (Entity entity in gameEngine.entityManager.GameObjects)
                     if (entity.GetComponent(typeof(EnemyBlockComponent)) != null)
                     {
                         // Create a new pen.
@@ -84,7 +87,7 @@ namespace SpaceInvaders
                         //Dispose of the pen.
                         skyBluePen.Dispose();
 
-                    }
+                    }*/
             }
         }
 
@@ -96,7 +99,7 @@ namespace SpaceInvaders
                 if (entity.GetComponent(typeof(PlayerComponent)) != null)
                 {
                     HealthComponent playerHealth = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                    return playerHealth.Life;
+                    return playerHealth.HP;
                 }
             }
             return 0;// probably dead
