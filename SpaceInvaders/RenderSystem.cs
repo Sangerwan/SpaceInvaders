@@ -31,39 +31,15 @@ namespace SpaceInvaders
 
         public void update(GameEngine gameEngine, Graphics graphics)
         {
+            if(drawGameState(gameEngine, graphics))
+            {
+                drawPlayerLife(gameEngine, graphics);
+                drawEntities(gameEngine, graphics);
+            }   
             
             
-            if (gameEngine.currentGameState == GameState.state.Pause)
-                graphics.DrawString("pause", defaultFont, blackBrush, 0, 0);
 
-            if (gameEngine.currentGameState == GameState.state.Loose)
-            {
-                graphics.DrawString("Loose", defaultFont, blackBrush, 0, 0);
-                return;
-            }               
-
-            if (gameEngine.currentGameState == GameState.state.Win)
-            {
-                graphics.DrawString("Win", defaultFont, blackBrush, 0, 0);
-                return;
-            }
-
-            int life = getPlayerLife(gameEngine);
-            graphics.DrawString("life : "+life.ToString(), defaultFont, blackBrush, 0, gameEngine.gameSize.Height - 24);
-
-            HashSet<Entity> renderableEntities = getEntities(gameEngine);
-
-            foreach (Entity entity in renderableEntities)
-            {
-                PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
-                ImageComponent image = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
-
-                if (position == null || image == null) return;
-
-                graphics.DrawImage(image.Image, (float)position.PositionX, (float)position.PositionY, image.Image.Width, image.Image.Height);
-
-                
-            }
+            
             {
                 /*foreach (Entity entity in gameEngine.entityManager.GameObjects)
                     if (entity.GetComponent(typeof(EnemyBlockComponent)) != null)
@@ -91,34 +67,54 @@ namespace SpaceInvaders
             }
         }
 
-        int getPlayerLife(GameEngine gameEngine)
+        private void drawEntities(GameEngine gameEngine, Graphics graphics)
         {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            foreach (Entity entity in entities)
+            HashSet<Entity> renderableEntities = gameEngine.entityManager.GetEntities(typeof(ImageComponent), typeof(PositionComponent));
+
+            foreach (Entity entity in renderableEntities)
             {
-                if (entity.GetComponent(typeof(PlayerComponent)) != null)
-                {
-                    HealthComponent playerHealth = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                    return playerHealth.HP;
-                }
+                PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
+                ImageComponent image = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
+
+                if (position == null || image == null) return;
+
+                graphics.DrawImage(image.Image, (float)position.PositionX, (float)position.PositionY, image.Image.Width, image.Image.Height);
+
             }
-            return 0;// probably dead
         }
 
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
+        void drawPlayerLife(GameEngine gameEngine, Graphics graphics)
         {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> renderableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(ImageComponent)) != null)
-                    renderableEntities.Add(entity);
-            }
-            return renderableEntities;
+            int life = gameEngine.entityManager.getPlayerLife();
+            graphics.DrawString("life : " + life.ToString(), defaultFont, blackBrush, 0, gameEngine.gameSize.Height - 24);
         }
-/*        public override void update(GameEngine gameEngine, double deltaT)
+
+        bool drawGameState(GameEngine gameEngine, Graphics graphics)
         {
             
-        }*/
+            if (gameEngine.currentGameState == GameState.state.Pause)
+            {
+                graphics.DrawString("pause", defaultFont, blackBrush, 0, 0);
+                return false;
+            }
+
+
+            if (gameEngine.currentGameState == GameState.state.Loose)
+            {
+                graphics.DrawString("Loose", defaultFont, blackBrush, 0, 0);
+                return false;
+            }
+
+            if (gameEngine.currentGameState == GameState.state.Win)
+            {
+                graphics.DrawString("Win", defaultFont, blackBrush, 0, 0);
+                return false;
+            }
+            return true;
+        }
+
+        
+
+
     }
 }

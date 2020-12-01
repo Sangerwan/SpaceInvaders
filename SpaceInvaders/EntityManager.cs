@@ -51,8 +51,8 @@ namespace SpaceInvaders
         /// <summary>
         /// Create a bunker
         /// </summary>
-        /// <param name="positionX">bunker position x</param>
-        /// <param name="positionY">bunker position y</param>
+        /// <param name="positionX">bunker x position</param>
+        /// <param name="positionY">bunker y position</param>
         /// <returns>
         /// An Entity of the created bunker
         /// </returns>
@@ -212,35 +212,52 @@ namespace SpaceInvaders
             
             GameObjects.Add(player);
         }
+
+        /// <summary>
+        /// Create a missile
+        /// </summary>
+        /// <param name="positionX">Missile x position</param>
+        /// <param name="positionY">Missile y position</param>
+        /// <param name="healthPoint">Missile health point</param>
+        /// <param name="side">Missile side</param>
+        /// <returns>The created missile</returns>
+        public Entity createMissile(double positionX, double positionY,int healthPoint=15,EntitySide.Side side = EntitySide.Side.Neutral)
+        {
+            Entity missile = new Entity();
+            MissileComponent missileComponent = new MissileComponent();
+            ImageComponent imageComponent = new ImageComponent(SpaceInvaders.Properties.Resources.shoot1);
+            HitboxComponent hitboxComponent = new HitboxComponent(imageComponent.Image);
+            PositionComponent positionComponent = new PositionComponent(positionX, positionY);
+            HealthComponent HealthComponent = new HealthComponent(15);
+            VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);            
+            SideComponent sideComponent = new SideComponent(side);
+            OnCollisionComponent onCollisionComponent = new OnCollisionComponent();
+            if (side == EntitySide.Side.Ally)
+                velocityComponent.VelocityY = -100;
+            else if (side == EntitySide.Side.Enemy)
+                velocityComponent.VelocityY = 100;
+
+            missile.addComponent(missileComponent, imageComponent, hitboxComponent, positionComponent, HealthComponent, velocityComponent, sideComponent, onCollisionComponent);
+            return missile;
+        }
+
+        /// <summary>
+        /// Create a missile entity from a given entity
+        /// </summary>
+        /// <param name="entity">The entity from which the missile is created</param>
         public void createMissile(Entity entity)
         {
             PositionComponent entityPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             ImageComponent entityImage = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
             SideComponent entitySide = (SideComponent)entity.GetComponent(typeof(SideComponent));
 
-            Entity missile = new Entity();
-            MissileComponent missileComponent = new MissileComponent();
-            ImageComponent image = new ImageComponent(SpaceInvaders.Properties.Resources.shoot1);
-            HitboxComponent hitbox = new HitboxComponent(image.Image);
-            PositionComponent position = new PositionComponent(entityPosition.PositionX + entityImage.Image.Width / 2, entityPosition.PositionY);
-            HealthComponent life = new HealthComponent(15);
-            VelocityComponent velocity = new VelocityComponent(0, 0, 0);
+            Entity missile =  createMissile(entityPosition.PositionX + entityImage.Image.Width / 2,
+                entityPosition.PositionY,
+                side : entitySide.Side
+                );
+            
             OnDeathComponent onDeathComponent = new OnDeathComponent(() => entity.addComponent(new CanShootComponent()));
-            if (entitySide.Side == EntitySide.Side.Ally)
-                velocity.VelocityY = -100;
-            else if (entitySide.Side == EntitySide.Side.Enemy)
-                velocity.VelocityY = 100;
-            SideComponent side = new SideComponent(entitySide.Side);
-            OnCollisionComponent collision = new OnCollisionComponent();
-            missile.addComponent(missileComponent);
-            missile.addComponent(image);
-            missile.addComponent(hitbox);
-            missile.addComponent(position);
-            missile.addComponent(life);
-            missile.addComponent(velocity);
-            missile.addComponent(side);
-            missile.addComponent(collision);
-            missile.addComponent(onDeathComponent);
+            missile.addComponent(onDeathComponent) ;
 
             GameObjects.Add(missile);
 
@@ -272,22 +289,51 @@ namespace SpaceInvaders
             missile.addComponent(side);
             missile.addComponent(collision);
             missile.addComponent(onDeathComponent);
-
+            
             GameObjects.Add(missile);
         }
 
-        /*public HashSet<Entity> GetEntities(params Type[] components)
-        {
-            HashSet<Entity> entities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
+        /// <summary>
+        /// Filter the list of entities with the list of components they must contain
+        /// </summary>
+        /// <param name="components">Component type list</param>
+        /// <returns>The filtered list of entities</returns>
+        public HashSet<Entity> GetEntities(params Type[] components)
+        {            
+            HashSet<Entity> filteredEntities = new HashSet<Entity>();
+            foreach (Entity entity in gameObjects)
             {
-                foreach(Component component in components)
+                bool hasAllComponents = true;
+                foreach(Type componentType in components)
                 {
-
+                    if (entity.GetComponent(componentType) == null)
+                    {
+                        hasAllComponents = false;
+                        break;
+                    }
+                        
                 }
-                if (entity.GetComponent(typeof(ImageComponent)) != null)
-                    renderableEntities.Add(entity);
+                if (hasAllComponents)
+                    filteredEntities.Add(entity);
+            }            
+            return filteredEntities;
+        }
+
+        /// <summary>
+        /// Get the player's health point
+        /// </summary>
+        /// <returns>The player's health point</returns>
+        public int getPlayerLife()
+        {            
+            foreach (Entity entity in gameObjects)
+            {
+                if (entity.GetComponent(typeof(PlayerComponent)) != null)
+                {
+                    HealthComponent playerHealth = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
+                    return playerHealth.HP;
+                }
             }
-        }*/
+            return 0;// probably dead
+        }
     }
 }

@@ -18,11 +18,15 @@ namespace SpaceInvaders
         public Size gameSize;
 
 
-        
+        /// <summary>
+        /// State of the game
+        /// </summary>
         GameState.state gameState;
 
         
-
+        /// <summary>
+        /// 
+        /// </summary>
         public EntityManager entityManager;
 
         public SystemManager systemManager;
@@ -37,15 +41,6 @@ namespace SpaceInvaders
         public static GameEngine game { get; private set; }
         public GameState.state currentGameState { get => gameState; set => gameState = value; }
 
-        /// <summary>
-        /// A shared black brush
-        /// </summary>
-        private static Brush blackBrush = new SolidBrush(Color.Black);
-
-        /// <summary>
-        /// A shared simple font
-        /// </summary>
-        private static Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
         #endregion
 
 

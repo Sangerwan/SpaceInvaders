@@ -49,7 +49,9 @@
     <Compile Include="BunkerComponent.cs">
       <DependentUpon>Entity.cs</DependentUpon>
     </Compile>
-    <Compile Include="CanShootComponent.cs" />
+    <Compile Include="CanShootComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
     <Compile Include="CollisionSystem.cs">
       <DependentUpon>GameSystem.cs</DependentUpon>
     </Compile>
