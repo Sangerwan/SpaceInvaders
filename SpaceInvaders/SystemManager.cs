@@ -5,17 +5,35 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Class to manage systems
+    /// </summary>
     class SystemManager
     {
+        /// <summary>
+        /// List of systems
+        /// </summary>
         List<GameSystem> systems;
+
+        /// <summary>
+        /// Simple access for the system list
+        /// </summary>
         public List<GameSystem> Systems { get => systems;}
 
+        /// <summary>
+        /// Simple Constructor
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
         public SystemManager(GameEngine gameEngine)
         {
             this.systems = new List<GameSystem>();
             InitSystem(gameEngine);
         }
 
+        /// <summary>
+        /// Initialize every system
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
         void InitSystem(GameEngine gameEngine)
         {
             InputSystem inputSystem = new InputSystem(gameEngine);
@@ -25,55 +43,30 @@ namespace SpaceInvaders
             RenderSystem renderSystem = new RenderSystem(gameEngine);
             DeathSystem deathSystem = new DeathSystem(gameEngine);
             WinLooseSystem winLooseSystem = new WinLooseSystem(gameEngine);
-            systems.Add(inputSystem);
-            systems.Add(enemyShootSystem);
-            systems.Add(moveSystem);
-            systems.Add(collisionSystem);
-            systems.Add(deathSystem);
-            systems.Add(winLooseSystem);
-            systems.Add(renderSystem);
-        }
-        void InitInput(GameEngine gameEngine)
-        {
-            /*InputSystem inputSystem = new InputSystem();
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> inputableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(InputComponent)) != null)
-                    inputableEntities.Add(entity);
-            }
-            inputSystem.Entities = inputableEntities;*/
-        }
-        void InitMove(GameEngine gameEngine)
-        {
-            /*MoveSystem moveSystem = new MoveSystem();
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> movableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(VelocityComponent)) != null)
-                    movableEntities.Add(entity);
-            }
-            moveSystem.Entities = movableEntities;*/
-        }
-        void InitCollision(GameEngine gameEngine)
-        {
-           /* CollisionSystem collisionSystem = new CollisionSystem();
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> collidableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(OnCollisionComponent)) != null)
-                    collidableEntities.Add(entity);
-            }
-            collisionSystem.Entities = collidableEntities;*/
-        }
-        
-        void InitRender(GameEngine gameEngine)
-        {
+
+            //order is important
+            addSystem(inputSystem, enemyShootSystem, moveSystem, collisionSystem, deathSystem, winLooseSystem, renderSystem);
 
         }
+
+        /// <summary>
+        /// Add the systems to the list of systems
+        /// </summary>
+        /// <param name="systemList">List of systems</param>
+        void addSystem(params GameSystem[] systemList)
+        {
+            foreach (GameSystem system in systemList)
+            {
+                systems.Add(system);
+            }
+
+        }
+
+        /// <summary>
+        /// Update each system
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
+        /// <param name="deltaT">Time elapsed since last update</param>
         public void update(GameEngine gameEngine,double deltaT)
         {
             systems[0].update(gameEngine, deltaT);// input system
@@ -86,16 +79,17 @@ namespace SpaceInvaders
             }
         }
 
-        public void update(GameEngine gameEngine)
-        {
-
-        }
-        public GameSystem GetSystem(Type gameSystem)
+        /// <summary>
+        /// Simple getter
+        /// </summary>
+        /// <param name="systemType">Type of system to get</param>
+        /// <returns>Return the system if found, else null</returns>
+        public GameSystem GetSystem(Type systemType)
         {
 
             foreach (GameSystem system in systems)
             {
-                if (system.GetType() == gameSystem) return system;
+                if (system.GetType() == systemType) return system;
             }
             return null;
         }

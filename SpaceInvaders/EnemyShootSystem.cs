@@ -5,27 +5,35 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// System to make enemy shoot randomly
+    /// </summary>
     class EnemyShootSystem:GameSystem
     {
-        int shootProbability;
+        
+        double shootProbability;
+
         Random random;
+
         public EnemyShootSystem(GameEngine gameEngine)
         {
-            this.shootProbability = 1;
+            this.ShootProbability = 1;
             this.random = new Random();
         }
 
+        public double ShootProbability { get => shootProbability; set => shootProbability = value; }
+
+
+
         public override void update(GameEngine gameEngine, double deltaT)
-        {
-            /*HashSet<Entity> enemyList1 = getEntities(gameEngine);
-            Entity entity1 = enemyList1.ElementAt(0);
-            gameEngine.entityManager.createMissile(entity1);*/
+        {            
             
             double randomNumber = random.NextDouble();
 
-            if (randomNumber <= shootProbability * deltaT)
+            if (randomNumber <= ShootProbability * deltaT)
             {
-                HashSet<Entity> enemyList = getEntities(gameEngine);
+                HashSet<Entity> enemyList = gameEngine.entityManager.getEnemies();
+
                 int enemyCount = enemyList.Count();
                 int randomShipIndex = random.Next(0, enemyCount);
 
@@ -35,25 +43,10 @@ namespace SpaceInvaders
                     gameEngine.entityManager.createMissile(entity);
                     entity.removeComponent(typeof(CanShootComponent));
                 }
+                shootProbability += 0.01;
             }
         }
 
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
-        {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;            
-            HashSet<Entity> enemyList = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                SideComponent side = (SideComponent)entity.GetComponent(typeof(SideComponent));
-                if (side != null)
-                {
-                    if (side.Side == EntitySide.Side.Enemy)
-                    {
-                        enemyList.Add(entity);
-                    }
-                }
-            }
-            return enemyList;
-        }
+        
     }
 }

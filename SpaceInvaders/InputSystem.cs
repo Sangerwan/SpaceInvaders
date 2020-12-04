@@ -6,9 +6,12 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
+
+    /// <summary>
+    /// System to manage the inputs
+    /// </summary>
     class InputSystem: GameSystem
-    {
-        
+    {       
         
         /// <summary>
         /// State of the keyboard
@@ -20,15 +23,6 @@ namespace SpaceInvaders
         public InputSystem(GameEngine gameEngine)
         {
             KeyPressed = new HashSet<Keys>();
-
-            /*HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> inputableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(InputComponent)) != null)
-                    inputableEntities.Add(entity);
-            }
-            this.Entities = inputableEntities;*/
         }
 
 
@@ -44,6 +38,37 @@ namespace SpaceInvaders
 
         public override void update(GameEngine gameEngine,double deltaT)
         {
+
+            updateGameState(gameEngine);
+
+            HashSet<Entity> inputableEntities = gameEngine.entityManager.GetEntities(typeof(InputComponent));
+            foreach (Entity entity in inputableEntities)// only 1 player atm
+            {
+                
+                InputComponent inputComponent = (InputComponent)entity.GetComponent(typeof(InputComponent));
+                VelocityComponent velocityComponent = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
+
+                if (inputComponent == null || velocityComponent == null) continue;
+
+                velocityComponent.VelocityY = 0;
+                velocityComponent.VelocityX = 0;
+                foreach (Keys key in inputComponent.Input.Keys)
+                {
+                    if (KeyPressed.Contains(key))
+                    {
+                        inputComponent.Input[key](entity);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update game state
+        /// </summary>
+        /// <param name="gameEngine"></param>
+        void updateGameState(GameEngine gameEngine)
+        {
+            //pause
             if (KeyPressed.Contains(Keys.P))
             {
                 if (gameEngine.currentGameState == GameState.state.Play)
@@ -53,63 +78,15 @@ namespace SpaceInvaders
                 ReleaseKey(Keys.P);
             }
 
-            if(gameEngine.currentGameState == GameState.state.Win
+            //replay
+            if (gameEngine.currentGameState == GameState.state.Win
                 || gameEngine.currentGameState == GameState.state.Loose)
             {
-                if(KeyPressed.Contains(Keys.Space))
+                if (KeyPressed.Contains(Keys.Space))
                     gameEngine.Init();
-                
+
             }
-            HashSet<Entity> inputableEntities = getEntities(gameEngine);
-            foreach (Entity entity in inputableEntities)// only 1 player atm
-            {
-                
-                InputComponent input = (InputComponent)entity.GetComponent(typeof(InputComponent));
-                VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
-
-                velocity.VelocityY = 0;
-                velocity.VelocityX = 0;
-                foreach (Keys key in input.Input.Keys)
-                {
-                    if (KeyPressed.Contains(key))
-                    {
-                        input.Input[key](entity);
-                    }
-                }
-/*
-                VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
-
-                velocity.VelocityY = 0;
-                velocity.VelocityX = 0;
-                if (KeyPressed.Contains(Keys.Up)) Console.WriteLine("up");
-                if (KeyPressed.Contains(Keys.Down)) Console.WriteLine("down");
-                if (KeyPressed.Contains(Keys.Left)) Console.WriteLine("left");
-                if (KeyPressed.Contains(Keys.Right)) Console.WriteLine("right");
-
-
-                if (KeyPressed.Contains(Keys.Up)) velocity.VelocityY -= 100;
-                if (KeyPressed.Contains(Keys.Down)) velocity.VelocityY += 100;
-                if (KeyPressed.Contains(Keys.Left)) velocity.VelocityX -= 100;
-                if (KeyPressed.Contains(Keys.Right)) velocity.VelocityX += 100;
-
-                if (KeyPressed.Contains(Keys.Space)&& entity.GetComponent(typeof(CanShootComponent)) != null)
-                {
-                    gameEngine.entityManager.createMissile(entity);
-                    //entity.removeComponent(typeof(CanShootComponent));
-                }*/
-            }
-
         }
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
-        {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> inputableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(InputComponent)) != null)
-                    inputableEntities.Add(entity);
-            }
-            return inputableEntities;
-        }
+
     }
 }

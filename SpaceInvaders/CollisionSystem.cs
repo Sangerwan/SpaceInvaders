@@ -5,115 +5,78 @@ using System.Text;
 using System.Drawing;
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// System to handle collision
+    /// </summary>
     class CollisionSystem:GameSystem
     {       
 
+        
         public CollisionSystem(GameEngine gameEngine)
         {            
-            /*HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> collidableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(OnCollisionComponent)) != null)
-                    collidableEntities.Add(entity);
-            }
-            this.Entities = collidableEntities;*/
+
         }
 
-        
-        public void update2(GameEngine gameEngine)
+        /// <summary>
+        /// Simple test to check if there's an intersection
+        /// </summary>
+        /// <param name="positionComponentA">Position of the first entity</param>
+        /// <param name="hitboxComponentA">Hitbox of the first entity</param>
+        /// <param name="positionComponentB">Position of the second entity</param>
+        /// <param name="hitboxComponentB">Hitbox of the second entity</param>
+        /// <returns>true if there's an intersection, else false</returns>
+        bool TestHitboxCollision(PositionComponent positionComponentA, HitboxComponent hitboxComponentA, PositionComponent positionComponentB, HitboxComponent hitboxComponentB)
         {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            foreach(Entity a in entities)
-            {
-                if (a.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm                
-
-                HealthComponent healthA = (HealthComponent)a.GetComponent(typeof(HealthComponent));
-                if (healthA == null || healthA.HP <= 0) continue;
-
-                HitboxComponent hitboxA = (HitboxComponent)a.GetComponent(typeof(HitboxComponent));
-                if (hitboxA != null)
-                {
-                    PositionComponent positionA = (PositionComponent)a.GetComponent(typeof(PositionComponent));
-                    EntitySide.Side sideA = ((SideComponent)a.GetComponent(typeof(SideComponent))).Side;
-                    foreach (Entity b in entities)
-                    {
-                        if (b == a) continue;
-
-                        HealthComponent healthB = (HealthComponent)b.GetComponent(typeof(HealthComponent));
-                        if (healthB == null || healthB.HP <= 0) continue;
-
-                        HitboxComponent hitboxB = (HitboxComponent)b.GetComponent(typeof(HitboxComponent));
-                        if (hitboxB == null) continue;
-
-                        PositionComponent positionB = (PositionComponent)b.GetComponent(typeof(PositionComponent));
-                        if (positionB == null) continue;
-
-                        EntitySide.Side sideB = ((SideComponent)b.GetComponent(typeof(SideComponent))).Side;
-                        if (sideA == sideB) continue;
-                        
-                        
-                        
-                        if (TestHitboxCollision(positionA, hitboxA, positionB, hitboxB)) 
-                        {                            
-                            ImageComponent imageA = (ImageComponent)a.GetComponent(typeof(ImageComponent));
-                            ImageComponent imageB = (ImageComponent)b.GetComponent(typeof(ImageComponent));                            
-                            if (imageA == null || imageB == null) continue;
-
-                            ImagePixelCollisionTest(gameEngine, a, b);
-                        }
-                        
-                        /*if (e.GetComponent(typeof(BunkerComponent)) != null) OnCollisionBunker(m, e);
-                        else if (e.GetComponent(typeof(DamageComponent)) != null) OnCollisionMissile(m, e);
-                        else if (e.GetComponent(typeof(SpaceShipComponent)) != null) OnCollisionSpaceShip(m, e);*/
-
-                    }
-                }
-            }
-        }
-
-        bool TestHitboxCollision(PositionComponent positionA, HitboxComponent hitboxA, PositionComponent positionB, HitboxComponent hitboxB)
-        {
-            bool AIsLeftOfB = positionA.PositionX + hitboxA.Size.Width < positionB.PositionX;
-            bool AIsRightOfB = positionA.PositionX > positionB.PositionX + hitboxB.Size.Width;
-            bool AIsAboveB = positionA.PositionY + hitboxA.Size.Height < positionB.PositionY;
-            bool AIsBelowB = positionA.PositionY > positionB.PositionY + hitboxB.Size.Height;
+            bool AIsLeftOfB = positionComponentA.PositionX + hitboxComponentA.Size.Width < positionComponentB.PositionX;
+            bool AIsRightOfB = positionComponentA.PositionX > positionComponentB.PositionX + hitboxComponentB.Size.Width;
+            bool AIsAboveB = positionComponentA.PositionY + hitboxComponentA.Size.Height < positionComponentB.PositionY;
+            bool AIsBelowB = positionComponentA.PositionY > positionComponentB.PositionY + hitboxComponentB.Size.Height;
             return !(AIsLeftOfB || AIsRightOfB || AIsAboveB || AIsBelowB);
         }
 
-        void ImagePixelCollisionTest(GameEngine gameEngine, Entity a, Entity b)
+        /// <summary>
+        /// Pixel test for collision
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
+        /// <param name="collider">Entity collider</param>
+        /// <param name="collided">Entity collided</param>
+        void ImagePixelCollisionTest(GameEngine gameEngine, Entity collider, Entity collided)
         {
             
-            PositionComponent positionA = (PositionComponent)a.GetComponent(typeof(PositionComponent));            
-            ImageComponent imageA = (ImageComponent)a.GetComponent(typeof(ImageComponent));
-            PositionComponent positionB = (PositionComponent)b.GetComponent(typeof(PositionComponent));
-            ImageComponent imageB = (ImageComponent)b.GetComponent(typeof(ImageComponent));
-            Action<Entity,Entity, int ,int > collision = null;
-            if (b.GetComponent(typeof(BunkerComponent)) != null) collision = OnCollisionBunker;
-            if (b.GetComponent(typeof(MissileComponent)) != null) collision = OnCollisionMissile;
-            if (b.GetComponent(typeof(SpaceShipComponent)) != null) collision = OnCollisionSpaceShip;
+            PositionComponent colliderPositionComponent = (PositionComponent)collider.GetComponent(typeof(PositionComponent));            
+            ImageComponent colliderImageComponent = (ImageComponent)collider.GetComponent(typeof(ImageComponent));
+            PositionComponent collidedPositionComponent = (PositionComponent)collided.GetComponent(typeof(PositionComponent));
+            ImageComponent collidedImageComponent = (ImageComponent)collided.GetComponent(typeof(ImageComponent));
 
+            //Find collision action
+            Action<Entity,Entity, int ,int > collision = null;
+            if (collided.GetComponent(typeof(BunkerComponent)) != null) collision = OnCollisionBunker;
+            if (collided.GetComponent(typeof(MissileComponent)) != null) collision = OnCollisionMissile;
+            if (collided.GetComponent(typeof(SpaceShipComponent)) != null) collision = OnCollisionSpaceShip;
             if (collision == null) return;
-            HealthComponent aHp = (HealthComponent)a.GetComponent(typeof(HealthComponent));
-            HealthComponent bHp = (HealthComponent)b.GetComponent(typeof(HealthComponent));
-            for (int j = 0; j < imageA.Image.Height; j++)
+
+            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
+            HealthComponent collidedHealthComponent = (HealthComponent)collided.GetComponent(typeof(HealthComponent));
+
+            //pixel check
+            for (int j = 0; j < colliderImageComponent.Image.Height; j++)
             {
-                for (int i = 0; i < imageA.Image.Width; i++)
+                for (int i = 0; i < colliderImageComponent.Image.Width; i++)
                 {
-                    int x = (int)(positionA.PositionX + i - positionB.PositionX);
-                    int y = (int)(positionA.PositionY + j - positionB.PositionY);
-                    if (!(x < 0 || y < 0 || x >= imageB.Image.Width || y >= imageB.Image.Height))
+                    int x = (int)(colliderPositionComponent.PositionX + i - collidedPositionComponent.PositionX);
+                    int y = (int)(colliderPositionComponent.PositionY + j - collidedPositionComponent.PositionY);
+                    if (!(x < 0 || y < 0 || x >= collidedImageComponent.Image.Width || y >= collidedImageComponent.Image.Height))
                     {
                         
-                        if (aHp.HP <= 0 || bHp.HP <= 0)
+                        if (colliderHealthComponent.HP <= 0 || collidedHealthComponent.HP <= 0)
                         {
                             return;
                         }
 
-                        if (imageA.Image.GetPixel(i, j)== Color.FromArgb(255, 0, 0, 0) &&
-                                imageB.Image.GetPixel(x, y)!= Color.FromArgb(0, 255, 255, 255))
+                        if (colliderImageComponent.Image.GetPixel(i, j) != Color.FromArgb(0, 255, 255, 255) &&
+                                collidedImageComponent.Image.GetPixel(x, y) != Color.FromArgb(0, 255, 255, 255)) 
                         {                            
-                            collision(a, b, x, y);
+                            collision(collider, collided, x, y);
                         }
                     }
                 }
@@ -121,82 +84,97 @@ namespace SpaceInvaders
             
         }
         
-
-        void OnCollisionBunker(Entity missile, Entity bunker, int x, int y)
+        /// <summary>
+        /// Handle collision with bunker
+        /// </summary>
+        /// <param name="collider">Entity collider</param>
+        /// <param name="bunker">Entity bunker collided</param>
+        /// <param name="x">Collision x position</param>
+        /// <param name="y">Collision y position</param>
+        void OnCollisionBunker(Entity collider, Entity bunker, int x, int y)
         {
-            ImageComponent imageBunker = (ImageComponent)bunker.GetComponent(typeof(ImageComponent));
-            HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
+            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
+            ImageComponent imageBunkerComponent = (ImageComponent)bunker.GetComponent(typeof(ImageComponent));            
 
-            imageBunker.Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
-            missileHp.HP--;
+            imageBunkerComponent.Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
+            colliderHealthComponent.HP--;
         }
 
-        void OnCollisionMissile(Entity missile, Entity otherMissile, int x, int y)
+        /// <summary>
+        /// Handle collision with missile
+        /// </summary>
+        /// <param name="collider">Entity collider</param>
+        /// <param name="missile">Entity missile collided</param>
+        /// <param name="x">Collision x position</param>
+        /// <param name="y">Collision y position</param>
+        void OnCollisionMissile(Entity collider, Entity missile, int x, int y)
         {
-            HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));            
-            HealthComponent otherMissileHp = (HealthComponent)otherMissile.GetComponent(typeof(HealthComponent));
+            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));            
+            HealthComponent missileHealthComponent = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
 
-            missileHp.HP = 0;
-            otherMissileHp.HP = 0;
-            
+            colliderHealthComponent.HP = 0;
+            missileHealthComponent.HP = 0;
+
         }
 
-        void OnCollisionSpaceShip(Entity missile, Entity spaceShip, int x, int y)
-        {
-            HealthComponent spaceShipHp = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
-            HealthComponent missileHp = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
-            missileHp.HP = 0;
-            spaceShipHp.HP--;
+        /// <summary>
+        /// Handle collision with spaceship
+        /// </summary>
+        /// <param name="collider">Entity collider</param>
+        /// <param name="spaceShip">Entity spaceship collided</param>
+        /// <param name="x">Collision x position</param>
+        /// <param name="y">Collision y position</param>
+        void OnCollisionSpaceShip(Entity collider, Entity spaceShip, int x, int y)
+        {            
+            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
+            HealthComponent spaceShipHealthComponent = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
+
+            colliderHealthComponent.HP = 0;
+            spaceShipHealthComponent.HP--;
         }
+
 
         public override void update(GameEngine gameEngine, double deltaT)
         {
-            HashSet<Entity> collidableEntities = getEntities(gameEngine);
-            foreach (Entity missile in collidableEntities)
+            HashSet<Entity> collidableEntities = gameEngine.entityManager.GetEntities(typeof(HitboxComponent));
+            foreach (Entity collider in collidableEntities)
             {
-                if (missile.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm
-                HitboxComponent missileHitbox = (HitboxComponent)missile.GetComponent(typeof(HitboxComponent));
-                if (missileHitbox != null)
+                if (collider.GetComponent(typeof(OnCollisionComponent)) == null) continue;   // only missile has collision atm
+
+                HitboxComponent colliderHitboxComponent = (HitboxComponent)collider.GetComponent(typeof(HitboxComponent));
+                if (colliderHitboxComponent != null)
                 {
-                    PositionComponent missilePosition = (PositionComponent)missile.GetComponent(typeof(PositionComponent));
-                    EntitySide.Side missileSide = ((SideComponent)missile.GetComponent(typeof(SideComponent))).Side;
-                    foreach (Entity entity in collidableEntities)
+                    PositionComponent colliderPositionComponent = (PositionComponent)collider.GetComponent(typeof(PositionComponent));
+                    if (colliderPositionComponent == null) continue;
+
+                    SideComponent colliderSideComponent = (SideComponent)collider.GetComponent(typeof(SideComponent));
+                    if (colliderSideComponent == null) continue;
+
+                    foreach (Entity collided in collidableEntities)
                     {
-                        if (entity == missile) continue;
+                        if (collided == collider) continue;
 
-                        SideComponent entitySide = (SideComponent)entity.GetComponent(typeof(SideComponent));
-                        if (entitySide==null||missileSide == entitySide.Side) continue;
+                        SideComponent collidedSideComponent = (SideComponent)collided.GetComponent(typeof(SideComponent));
+                        if (collidedSideComponent == null || colliderSideComponent.Side == collidedSideComponent.Side) continue;
 
-                        HitboxComponent entityHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
-                        if (entityHitbox == null) continue;
+                        HitboxComponent collidedHitBoxComponent = (HitboxComponent)collided.GetComponent(typeof(HitboxComponent));
+                        if (collidedHitBoxComponent == null) continue;
 
-                        PositionComponent entityPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
-                        if (entityPosition == null) continue;
+                        PositionComponent collidedPositionComponent = (PositionComponent)collided.GetComponent(typeof(PositionComponent));
+                        if (collidedPositionComponent == null) continue;
 
-                        if (TestHitboxCollision(missilePosition, missileHitbox, entityPosition, entityHitbox))
+                        if (TestHitboxCollision(colliderPositionComponent, colliderHitboxComponent, collidedPositionComponent, collidedHitBoxComponent))
                         {
-                            ImageComponent missileImage = (ImageComponent)missile.GetComponent(typeof(ImageComponent));
-                            ImageComponent entityImage = (ImageComponent)entity.GetComponent(typeof(ImageComponent));
-                            if (missileImage == null || entityImage == null) continue;
-
-                            ImagePixelCollisionTest(gameEngine, missile, entity);
+                            ImageComponent colliderImageComponent = (ImageComponent)collider.GetComponent(typeof(ImageComponent));
+                            ImageComponent collidedImageComponent = (ImageComponent)collided.GetComponent(typeof(ImageComponent));
+                            if (colliderImageComponent == null || collidedImageComponent == null) continue;
+                            ImagePixelCollisionTest(gameEngine, collider, collided);
                         }
                     }
                 }
             }
         }
 
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
-        {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> collidableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(HitboxComponent)) != null)
-                    collidableEntities.Add(entity);
-            }
-            return collidableEntities;
-        }
     }
 }
         

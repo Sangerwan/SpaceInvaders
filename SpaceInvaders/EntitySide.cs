@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// static class for the entity sides
+    /// </summary>
     static class EntitySide
     {
         public enum Side

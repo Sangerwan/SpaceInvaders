@@ -5,7 +5,10 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class MissileComponent:Component
+    /// <summary>
+    /// Component to know if the entity is a missile
+    /// </summary>
+    class MissileComponent :Component
     {
     }
 }

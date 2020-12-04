@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component to hold the entity's side
+    /// </summary>
     class SideComponent:Component
     {
         

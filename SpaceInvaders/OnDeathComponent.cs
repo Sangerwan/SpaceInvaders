@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component to hold action on the entity death
+    /// </summary>
     class OnDeathComponent:Component
     {
         Action action;

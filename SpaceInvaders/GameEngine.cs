@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Class that connects the elements of the game together
+    /// </summary>
     class GameEngine
     {       
 
@@ -25,10 +28,13 @@ namespace SpaceInvaders
 
         
         /// <summary>
-        /// 
+        /// Entity manager
         /// </summary>
         public EntityManager entityManager;
 
+        /// <summary>
+        /// System manager
+        /// </summary>
         public SystemManager systemManager;
 
         #endregion
@@ -39,6 +45,10 @@ namespace SpaceInvaders
         /// Singleton for easy access
         /// </summary>
         public static GameEngine game { get; private set; }
+
+        /// <summary>
+        /// Property for game state
+        /// </summary>
         public GameState.state currentGameState { get => gameState; set => gameState = value; }
 
         #endregion
@@ -46,11 +56,10 @@ namespace SpaceInvaders
 
         #region constructors
         /// <summary>
-        /// Singleton constructor
+        /// Create and initialize the game
         /// </summary>
         /// <param name="gameSize">Size of the game area</param>
-        /// 
-        /// <returns></returns>
+        /// <returns>The created game</returns>
         public static GameEngine CreateGame(Size gameSize)
         {
             if (game == null)
@@ -58,14 +67,14 @@ namespace SpaceInvaders
             game.Init();
             return game;
         }
+
         /// <summary>
-        /// Create all Entity for the game
+        /// Initialize the game
         /// </summary>
         public void Init()
         {
             gameState = GameState.state.Play;
             entityManager = new EntityManager(this);
-            //entityManager.Init(this);
             systemManager = new SystemManager(this);
         }
 
@@ -81,16 +90,12 @@ namespace SpaceInvaders
         #endregion
 
         #region methods
-
-
         /// <summary>
-        /// Update game
+        /// Update the game
         /// </summary>
         public void Update(double deltaT)
         {
-            Console.WriteLine(gameState);
-            systemManager.update(this, deltaT);
-            
+            systemManager.update(this, deltaT);                      
         }
         #endregion
     }

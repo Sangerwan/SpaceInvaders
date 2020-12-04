@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component for an image
+    /// </summary>
     class ImageComponent:Component
     {
         Bitmap image;

@@ -5,18 +5,20 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Abstract class for systems in the game
+    /// </summary>
     abstract class GameSystem
     {
-        /*HashSet<Entity> entities = new HashSet<Entity>();
-
-        public HashSet<Entity> Entities { get => entities; set => entities = value; }*/
-
+        /// <summary>
+        /// Generic method to update the system
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
+        /// <param name="deltaT">Time elapsed since last update</param>
         public virtual void update(GameEngine gameEngine, double deltaT)
         {
 
         }
-
-        protected abstract HashSet<Entity> getEntities(GameEngine gameEngine);
 
     }
 }

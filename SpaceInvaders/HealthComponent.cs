@@ -5,8 +5,12 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component for health
+    /// </summary>
     class HealthComponent:Component
     {
+
         int healthPoint;
         public HealthComponent(int life)
         {

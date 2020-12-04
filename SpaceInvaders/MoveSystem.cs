@@ -5,38 +5,32 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// System to move entities
+    /// </summary>
     class MoveSystem: GameSystem
     {
+        /// <summary>
+        /// Keep enemy block for simple access
+        /// </summary>
         Entity enemyBlock;
         public MoveSystem(GameEngine gameEngine)
         {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(EnemyBlockComponent)) != null)
-                {
-                    this.enemyBlock = entity;
-                    return;
-                }
-            }
-            /*HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> movableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(VelocityComponent)) != null)
-                    movableEntities.Add(entity);
-            }
-            this.Entities = movableEntities;*/
+            HashSet<Entity> enemyBlocks = gameEngine.entityManager.GetEntities(typeof(EnemyBlockComponent));
+
+            //only one atm
+            this.enemyBlock = enemyBlocks.ElementAt(0);
         }
 
         public override void update(GameEngine gameEngine, double deltaT)
         {
-            HashSet<Entity> movableEntities = getEntities(gameEngine);
+            HashSet<Entity> movableEntities = gameEngine.entityManager.GetEntities(typeof(VelocityComponent));
+
             updateEnemyVelocity(gameEngine, deltaT, movableEntities);
             
             foreach (Entity entity in movableEntities)
             {
-                //if (entity.GetComponent(typeof(EnemyBlockComponent)) != null) continue;
+                
                 moveEntity(entity,deltaT);
                 
                 if (outOfBonds(gameEngine, entity))
@@ -50,33 +44,44 @@ namespace SpaceInvaders
                     {
                         moveBackEntity(entity, deltaT);
                     }
-                }
-
-                    
+                }                    
             }
         }
 
+        /// <summary>
+        /// Move an entity
+        /// </summary>
+        /// <param name="entity">Entity to move</param>
+        /// <param name="deltaT">Time elapsed since last update</param>
         void moveEntity(Entity entity, double deltaT)
         {
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
 
             position.PositionX += velocity.VelocityX * deltaT;
-            position.PositionY += velocity.VelocityY * deltaT;
-
-            
+            position.PositionY += velocity.VelocityY * deltaT;            
         }
 
+        /// <summary>
+        /// Move back an entity
+        /// </summary>
+        /// <param name="entity">Entity to move back</param>
+        /// <param name="deltaT">Time elapsed since last update</param>
         void moveBackEntity(Entity entity, double deltaT)
         {
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
-
            
             position.PositionX -= velocity.VelocityX * deltaT;
             position.PositionY -= velocity.VelocityY * deltaT;
         }
 
+        /// <summary>
+        /// Test if an entity is out of the screen
+        /// </summary>
+        /// <param name="gameEngine">Current game</param>
+        /// <param name="entity">Entity to check</param>
+        /// <returns>true if is out of the screen, else false</returns>
         bool outOfBonds(GameEngine gameEngine, Entity entity)
         {
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
@@ -87,18 +92,27 @@ namespace SpaceInvaders
                 || position.PositionX < 0 
                 || position.PositionX + hitbox.Size.Width > gameEngine.gameSize.Width;
         }
+
+        /// <summary>
+        /// Update enemy velocity based on the enemy block
+        /// </summary>
+        /// <param name="gameEngine"></param>
+        /// <param name="deltaT"></param>
+        /// <param name="movableEntities"></param>
         void updateEnemyVelocity(GameEngine gameEngine,double deltaT ,HashSet<Entity> movableEntities)
         {            
-            HashSet<Entity> enemyList = getEnemies(movableEntities);
+            HashSet<Entity> enemyList = gameEngine.entityManager.getEnemies();
             updateEnemyBlock(enemyList);
             VelocityComponent enemyBlockVelocity = (VelocityComponent)enemyBlock.GetComponent(typeof(VelocityComponent));
             PositionComponent enemyBlockPosition = (PositionComponent)enemyBlock.GetComponent(typeof(PositionComponent));
+
             moveEntity(enemyBlock, deltaT);
+
             if(outOfBonds(gameEngine,enemyBlock))
             {
                 moveBackEntity(enemyBlock, deltaT);
                 enemyBlockVelocity.VelocityX *= -1.01;
-                enemyBlockVelocity.VelocityY = 200;
+                enemyBlockVelocity.VelocityY = 1500;
             }
             else
             {
@@ -112,9 +126,6 @@ namespace SpaceInvaders
                 entityVelocity.VelocityY = enemyBlockVelocity.VelocityY;
                 entityVelocity.AngularVelocity = enemyBlockVelocity.AngularVelocity;
             }
-
-
-
         }
         void updateEnemyBlock(HashSet<Entity> enemyList)
         {
@@ -139,34 +150,9 @@ namespace SpaceInvaders
             enemyBlockPosition.PositionY = yMin;
             
         }
-        HashSet<Entity> getEnemies(HashSet<Entity> movableEntities)
-        {
-            
-            HashSet<Entity> enemyList = new HashSet<Entity>();
-            foreach (Entity entity in movableEntities)
-            {
-                SideComponent side = (SideComponent)entity.GetComponent(typeof(SideComponent));
-                if (side != null)
-                {
-                    if (side.Side == EntitySide.Side.Enemy)
-                    {
-                        if(entity.GetComponent(typeof(SpaceShipComponent))!=null)
-                            enemyList.Add(entity);
-                    }
-                }
-            }
-            return enemyList;
-        }
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
-        {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> movableEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(VelocityComponent)) != null)
-                    movableEntities.Add(entity);
-            }
-            return movableEntities;
-        }
+
+
+        
+        
     }
 }

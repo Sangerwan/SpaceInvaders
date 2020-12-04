@@ -5,11 +5,13 @@ using System.Text;
 using System.Windows.Forms;
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component for inputs
+    /// </summary>
     class InputComponent:Component
     {
+
         Dictionary<Keys, Action<Entity>> input;
-
-
 
         public InputComponent()
         {

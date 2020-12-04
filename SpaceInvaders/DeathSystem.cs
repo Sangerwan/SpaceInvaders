@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// System to manage dead entities
+    /// </summary>
     class DeathSystem : GameSystem
     {
         public DeathSystem(GameEngine gameEngine)
@@ -14,31 +17,21 @@ namespace SpaceInvaders
         public override void update(GameEngine gameEngine, double deltaT)
         {
             HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> candDieEntities = getEntities(gameEngine);
+            HashSet<Entity> candDieEntities = gameEngine.entityManager.GetEntities(typeof(HealthComponent));
             foreach(Entity entity in candDieEntities)
             {
-                HealthComponent health = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                if (health.HP <= 0)
+                HealthComponent healthComponent = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
+                if (healthComponent.HP <= 0)
                 {
-                    OnDeathComponent ondeath = (OnDeathComponent)entity.GetComponent(typeof(OnDeathComponent));
-                    if(ondeath!=null)
-                        ondeath.Action();
+                    OnDeathComponent onDeathComponent = (OnDeathComponent)entity.GetComponent(typeof(OnDeathComponent));
+                    if(onDeathComponent!=null)
+                        onDeathComponent.Action();
                     entities.Remove(entity);
                 }
             }
             
         }
 
-        protected override HashSet<Entity> getEntities(GameEngine gameEngine)
-        {
-            HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
-            HashSet<Entity> candDieEntities = new HashSet<Entity>();
-            foreach (Entity entity in entities)
-            {
-                if (entity.GetComponent(typeof(HealthComponent)) != null)
-                    candDieEntities.Add(entity);
-            }
-            return candDieEntities;
-        }
+
     }
 }

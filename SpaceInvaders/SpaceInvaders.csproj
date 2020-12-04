@@ -89,7 +89,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GameEngine.cs" />
-    <Compile Include="GameObject.cs" />
     <Compile Include="HitboxComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
@@ -102,9 +101,6 @@
     <Compile Include="MissileComponent.cs">
       <DependentUpon>Entity.cs</DependentUpon>
     </Compile>
-    <Compile Include="dOnCollisionMissileComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
-    </Compile>
     <Compile Include="OnDeathComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
@@ -116,12 +112,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BalleQuiTombe.cs" />
     <Compile Include="RenderSystem.cs">
       <DependentUpon>GameSystem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RespawnComponent.cs">
-      <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="SideComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>

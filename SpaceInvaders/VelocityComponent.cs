@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Component to hold the entity's velocity
+    /// </summary>
     class VelocityComponent:Component
     {
         double velocityX;
