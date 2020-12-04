@@ -31,7 +31,7 @@ namespace SpaceInvaders
         /// Test if there are enemies remaining
         /// </summary>
         /// <param name="gameEngine"></param>
-        /// <returns>Return true if there are enemies remaining, else false</returns>
+        /// <returns>Return true if there are no enemies remaining, else false</returns>
         bool noEnemyLeft(GameEngine gameEngine)
         {
             bool noEnemyLeft = true;
@@ -48,10 +48,10 @@ namespace SpaceInvaders
         /// Test if there is a player remaining 
         /// </summary>
         /// <param name="gameEngine"></param>
-        /// <returns>return true if there's a player, else false</returns>
+        /// <returns>return false if there's a player, else true</returns>
         bool noPlayerLeft(GameEngine gameEngine)
         {
-            return gameEngine.entityManager.getPlayer() != null ? true : false;
+            return gameEngine.entityManager.getPlayer() != null ? false : true;
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace SpaceInvaders
 
             if (randomNumber <= ShootProbability * deltaT)
             {
-                HashSet<Entity> enemyList = gameEngine.entityManager.getEnemies();
+                HashSet<Entity> enemyList = gameEngine.entityManager.getListOfEnemyShips();
 
                 int enemyCount = enemyList.Count();
                 int randomShipIndex = random.Next(0, enemyCount);

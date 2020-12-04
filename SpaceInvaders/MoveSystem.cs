@@ -101,7 +101,7 @@ namespace SpaceInvaders
         /// <param name="movableEntities"></param>
         void updateEnemyVelocity(GameEngine gameEngine, double deltaT, HashSet<Entity> movableEntities)
         {
-            HashSet<Entity> enemyList = gameEngine.entityManager.getEnemies();
+            HashSet<Entity> enemyList = gameEngine.entityManager.getListOfEnemyShips();
             updateEnemyBlock(enemyList);
             VelocityComponent enemyBlockVelocity = (VelocityComponent)enemyBlock.GetComponent(typeof(VelocityComponent));
             PositionComponent enemyBlockPosition = (PositionComponent)enemyBlock.GetComponent(typeof(PositionComponent));

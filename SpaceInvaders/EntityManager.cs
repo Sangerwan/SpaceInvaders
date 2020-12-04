@@ -86,7 +86,7 @@ namespace SpaceInvaders
             //creation of the components
             HitboxComponent enemyBlockHitboxComponent = new HitboxComponent(gameEngine.gameSize.Width / 2, 0);
             PositionComponent enemyBlockPositionComponent = new PositionComponent(0, 0);
-            VelocityComponent enemyBlockVelocityComponent = new VelocityComponent(50, 0);//50
+            VelocityComponent enemyBlockVelocityComponent = new VelocityComponent(50, 0);
             EnemyBlockComponent enemyBlockComponent = new EnemyBlockComponent();
             enemyBlock.addComponent(enemyBlockHitboxComponent, enemyBlockPositionComponent, enemyBlockVelocityComponent, enemyBlockComponent);
 
@@ -141,7 +141,7 @@ namespace SpaceInvaders
         /// <returns>
         /// The created spaceship
         /// </returns>
-        Entity createSpaceShip(Bitmap image, EntitySide.Side side, double positionX = 0, double positionY = 0, int health = 2)
+        Entity createSpaceShip(Bitmap image, EntitySide.Side side, double positionX = 0, double positionY = 0, int health = 1)
         {
             Entity spaceShip = new Entity();
 
@@ -182,7 +182,7 @@ namespace SpaceInvaders
         /// <param name="gameEngine">Current game</param>
         void InitPlayer(GameEngine gameEngine)
         {
-            Entity player = createSpaceShip(SpaceInvaders.Properties.Resources.ship3, EntitySide.Side.Ally, 0, gameEngine.gameSize.Height - 75);
+            Entity player = createSpaceShip(SpaceInvaders.Properties.Resources.ship3, EntitySide.Side.Ally, 0, gameEngine.gameSize.Height - 75, 3);
             PlayerComponent playerComponent = new PlayerComponent();
             InputComponent inputComponent = new InputComponent();
             /*inputComponent.Input.Add(System.Windows.Forms.Keys.Up, 
@@ -356,12 +356,12 @@ namespace SpaceInvaders
         }
 
         /// <summary>
-        /// Get the list of enemies
+        /// Get the list of enemy ships
         /// </summary>
-        /// <returns>list of enemies</returns>
-        public HashSet<Entity> getEnemies()
+        /// <returns>list of enemy ships</returns>
+        public HashSet<Entity> getListOfEnemyShips()
         {
-            HashSet<Entity> entities = GetEntities(typeof(SideComponent));
+            HashSet<Entity> entities = GetEntities(typeof(SideComponent), typeof(SpaceShipComponent));
             HashSet<Entity> enemyList = new HashSet<Entity>();
 
             foreach (Entity entity in entities)
