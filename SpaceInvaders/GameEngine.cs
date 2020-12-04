@@ -12,7 +12,7 @@ namespace SpaceInvaders
     /// Class that connects the elements of the game together
     /// </summary>
     class GameEngine
-    {       
+    {
 
         #region game technical elements
         /// <summary>
@@ -26,7 +26,7 @@ namespace SpaceInvaders
         /// </summary>
         GameState.state gameState;
 
-        
+
         /// <summary>
         /// Entity manager
         /// </summary>
@@ -83,7 +83,7 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="gameSize">Size of the game area</param>
         private GameEngine(Size gameSize)
-        {            
+        {
             this.gameSize = gameSize;
         }
 
@@ -95,7 +95,7 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
-            systemManager.update(this, deltaT);                      
+            systemManager.update(this, deltaT);
         }
         #endregion
     }

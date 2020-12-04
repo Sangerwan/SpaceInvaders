@@ -8,9 +8,9 @@ namespace SpaceInvaders
     /// <summary>
     /// Component to hold the entity's side
     /// </summary>
-    class SideComponent:Component
+    class SideComponent : Component
     {
-        
+
         EntitySide.Side side;
 
         public SideComponent(EntitySide.Side entitySide)

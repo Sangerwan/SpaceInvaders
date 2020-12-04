@@ -8,12 +8,12 @@ namespace SpaceInvaders
     /// <summary>
     /// System to handle collision
     /// </summary>
-    class CollisionSystem:GameSystem
-    {       
+    class CollisionSystem : GameSystem
+    {
 
-        
+
         public CollisionSystem(GameEngine gameEngine)
-        {            
+        {
 
         }
 
@@ -42,14 +42,14 @@ namespace SpaceInvaders
         /// <param name="collided">Entity collided</param>
         void ImagePixelCollisionTest(GameEngine gameEngine, Entity collider, Entity collided)
         {
-            
-            PositionComponent colliderPositionComponent = (PositionComponent)collider.GetComponent(typeof(PositionComponent));            
+
+            PositionComponent colliderPositionComponent = (PositionComponent)collider.GetComponent(typeof(PositionComponent));
             ImageComponent colliderImageComponent = (ImageComponent)collider.GetComponent(typeof(ImageComponent));
             PositionComponent collidedPositionComponent = (PositionComponent)collided.GetComponent(typeof(PositionComponent));
             ImageComponent collidedImageComponent = (ImageComponent)collided.GetComponent(typeof(ImageComponent));
 
             //Find collision action
-            Action<Entity,Entity, int ,int > collision = null;
+            Action<Entity, Entity, int, int> collision = null;
             if (collided.GetComponent(typeof(BunkerComponent)) != null) collision = OnCollisionBunker;
             if (collided.GetComponent(typeof(MissileComponent)) != null) collision = OnCollisionMissile;
             if (collided.GetComponent(typeof(SpaceShipComponent)) != null) collision = OnCollisionSpaceShip;
@@ -67,23 +67,23 @@ namespace SpaceInvaders
                     int y = (int)(colliderPositionComponent.PositionY + j - collidedPositionComponent.PositionY);
                     if (!(x < 0 || y < 0 || x >= collidedImageComponent.Image.Width || y >= collidedImageComponent.Image.Height))
                     {
-                        
+
                         if (colliderHealthComponent.HP <= 0 || collidedHealthComponent.HP <= 0)
                         {
                             return;
                         }
 
                         if (colliderImageComponent.Image.GetPixel(i, j) != Color.FromArgb(0, 255, 255, 255) &&
-                                collidedImageComponent.Image.GetPixel(x, y) != Color.FromArgb(0, 255, 255, 255)) 
-                        {                            
+                                collidedImageComponent.Image.GetPixel(x, y) != Color.FromArgb(0, 255, 255, 255))
+                        {
                             collision(collider, collided, x, y);
                         }
                     }
                 }
             }
-            
+
         }
-        
+
         /// <summary>
         /// Handle collision with bunker
         /// </summary>
@@ -94,7 +94,7 @@ namespace SpaceInvaders
         void OnCollisionBunker(Entity collider, Entity bunker, int x, int y)
         {
             HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
-            ImageComponent imageBunkerComponent = (ImageComponent)bunker.GetComponent(typeof(ImageComponent));            
+            ImageComponent imageBunkerComponent = (ImageComponent)bunker.GetComponent(typeof(ImageComponent));
 
             imageBunkerComponent.Image.SetPixel(x, y, Color.FromArgb(0, 255, 255, 255));
             colliderHealthComponent.HP--;
@@ -109,7 +109,7 @@ namespace SpaceInvaders
         /// <param name="y">Collision y position</param>
         void OnCollisionMissile(Entity collider, Entity missile, int x, int y)
         {
-            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));            
+            HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
             HealthComponent missileHealthComponent = (HealthComponent)missile.GetComponent(typeof(HealthComponent));
 
             colliderHealthComponent.HP = 0;
@@ -125,7 +125,7 @@ namespace SpaceInvaders
         /// <param name="x">Collision x position</param>
         /// <param name="y">Collision y position</param>
         void OnCollisionSpaceShip(Entity collider, Entity spaceShip, int x, int y)
-        {            
+        {
             HealthComponent colliderHealthComponent = (HealthComponent)collider.GetComponent(typeof(HealthComponent));
             HealthComponent spaceShipHealthComponent = (HealthComponent)spaceShip.GetComponent(typeof(HealthComponent));
 
@@ -177,6 +177,6 @@ namespace SpaceInvaders
 
     }
 }
-        
 
-    
+
+

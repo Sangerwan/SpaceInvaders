@@ -33,7 +33,7 @@ namespace SpaceInvaders
             {
                 components.Add(component);
             }
-            
+
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace SpaceInvaders
         /// <returns>Return the component if found, else null</returns>
         public Component GetComponent(Type componentType)
         {
-            
-            foreach(Component component in components)
+
+            foreach (Component component in components)
             {
                 if (component.GetType() == componentType) return component;
             }

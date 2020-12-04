@@ -10,12 +10,13 @@ namespace SpaceInvaders
     /// </summary>
     static class GameState
     {
-        public enum state { 
-            Play, 
-            Pause, 
-            Win, 
-            Loose, 
-            Menu 
+        public enum state
+        {
+            Play,
+            Pause,
+            Win,
+            Loose,
+            Menu
         };
     }
 }

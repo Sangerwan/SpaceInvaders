@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component to hold action on the entity death
     /// </summary>
-    class OnDeathComponent:Component
+    class OnDeathComponent : Component
     {
         Action action;
         public OnDeathComponent()
@@ -17,7 +17,7 @@ namespace SpaceInvaders
         }
         public OnDeathComponent(Action action)
         {
-            this.Action= action;
+            this.Action = action;
         }
 
         public Action Action { get => action; set => action = value; }

@@ -14,7 +14,7 @@ namespace SpaceInvaders
         /// <summary>
         /// A shared black brush
         /// </summary>
-        private static Brush blackBrush = new SolidBrush(Color.Black);
+    private static Brush blackBrush = new SolidBrush(Color.Black);
 
         /// <summary>
         /// A shared simple font

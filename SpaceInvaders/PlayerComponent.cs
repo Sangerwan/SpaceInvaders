@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component to know if the entity is a player
     /// </summary>
-    class PlayerComponent :Component
+    class PlayerComponent : Component
     {
     }
 }

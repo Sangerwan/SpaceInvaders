@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component for the entity's position
     /// </summary>
-    class PositionComponent:Component
+    class PositionComponent : Component
     {
         double positionX;
         double positionY;

@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component to know if the entity is a bunker
     /// </summary>
-    class BunkerComponent :Component
+    class BunkerComponent : Component
     {
     }
 }

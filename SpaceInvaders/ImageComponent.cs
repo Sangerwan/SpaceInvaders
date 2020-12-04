@@ -9,7 +9,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component for an image
     /// </summary>
-    class ImageComponent:Component
+    class ImageComponent : Component
     {
         Bitmap image;
         public ImageComponent(Bitmap image)

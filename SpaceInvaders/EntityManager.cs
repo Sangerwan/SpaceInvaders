@@ -242,7 +242,7 @@ namespace SpaceInvaders
             HitboxComponent hitboxComponent = new HitboxComponent(imageComponent.Image);
             PositionComponent positionComponent = new PositionComponent(positionX, positionY);
             HealthComponent healthComponent = new HealthComponent(15);
-            VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);            
+            VelocityComponent velocityComponent = new VelocityComponent(0, 0, 0);
             OnCollisionComponent onCollisionComponent = new OnCollisionComponent();
             SideComponent sideComponent = new SideComponent(side);
             if (side == EntitySide.Side.Ally)
@@ -384,7 +384,7 @@ namespace SpaceInvaders
         /// <param name="gameEngine"></param>
         /// <returns>Retrun enemyblock if found, else null</returns>
         public Entity getEnemyBlock()
-        {            
+        {
             foreach (Entity entity in gameObjects)
             {
                 if (entity.GetComponent(typeof(EnemyBlockComponent)) != null)

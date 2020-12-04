@@ -8,9 +8,9 @@ namespace SpaceInvaders
     /// <summary>
     /// System to make enemy shoot randomly
     /// </summary>
-    class EnemyShootSystem:GameSystem
+    class EnemyShootSystem : GameSystem
     {
-        
+
         double shootProbability;
 
         Random random;
@@ -26,8 +26,8 @@ namespace SpaceInvaders
 
 
         public override void update(GameEngine gameEngine, double deltaT)
-        {            
-            
+        {
+
             double randomNumber = random.NextDouble();
 
             if (randomNumber <= ShootProbability * deltaT)
@@ -47,6 +47,6 @@ namespace SpaceInvaders
             }
         }
 
-        
+
     }
 }

@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Component for health
     /// </summary>
-    class HealthComponent:Component
+    class HealthComponent : Component
     {
 
         int healthPoint;

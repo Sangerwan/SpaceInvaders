@@ -10,9 +10,9 @@ namespace SpaceInvaders
     /// <summary>
     /// System to manage the inputs
     /// </summary>
-    class InputSystem: GameSystem
-    {       
-        
+    class InputSystem : GameSystem
+    {
+
         /// <summary>
         /// State of the keyboard
         /// </summary>
@@ -36,7 +36,7 @@ namespace SpaceInvaders
             KeyPressed.Remove(key);
         }
 
-        public override void update(GameEngine gameEngine,double deltaT)
+        public override void update(GameEngine gameEngine, double deltaT)
         {
 
             updateGameState(gameEngine);
@@ -44,7 +44,7 @@ namespace SpaceInvaders
             HashSet<Entity> inputableEntities = gameEngine.entityManager.GetEntities(typeof(InputComponent));
             foreach (Entity entity in inputableEntities)// only 1 player atm
             {
-                
+
                 InputComponent inputComponent = (InputComponent)entity.GetComponent(typeof(InputComponent));
                 VelocityComponent velocityComponent = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
 

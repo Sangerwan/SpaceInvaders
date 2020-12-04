@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// System to update the game state if the game is won or lost
     /// </summary>
-    class WinLooseSystem:GameSystem
+    class WinLooseSystem : GameSystem
     {
 
         public WinLooseSystem(GameEngine gameEngine)
@@ -18,12 +18,12 @@ namespace SpaceInvaders
 
         public override void update(GameEngine gameEngine, double deltaT)
         {
-           
+
             if (noPlayerLeft(gameEngine))
                 gameEngine.currentGameState = GameState.state.Loose;
-            if (enemyBlockReached(gameEngine)) 
+            if (enemyBlockReached(gameEngine))
                 gameEngine.currentGameState = GameState.state.Loose;
-            if (noEnemyLeft(gameEngine) )
+            if (noEnemyLeft(gameEngine))
                 gameEngine.currentGameState = GameState.state.Win;
         }
 
@@ -49,7 +49,8 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="gameEngine"></param>
         /// <returns>return true if there's a player, else false</returns>
-        bool noPlayerLeft(GameEngine gameEngine) {
+        bool noPlayerLeft(GameEngine gameEngine)
+        {
             return gameEngine.entityManager.getPlayer() != null ? true : false;
         }
 
@@ -65,7 +66,7 @@ namespace SpaceInvaders
             PositionComponent enemyBlockPositionComponent = (PositionComponent)enemyBlock.GetComponent(typeof(PositionComponent));
             HitboxComponent enemyBlockHitboxComponent = (HitboxComponent)enemyBlock.GetComponent(typeof(HitboxComponent));
 
-            if (enemyBlockPositionComponent.PositionY + enemyBlockHitboxComponent.Height < gameEngine.gameSize.Height - 150) 
+            if (enemyBlockPositionComponent.PositionY + enemyBlockHitboxComponent.Height < gameEngine.gameSize.Height - 150)
                 enemyBlockReached = false;
             return enemyBlockReached;
         }

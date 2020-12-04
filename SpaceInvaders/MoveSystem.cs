@@ -8,7 +8,7 @@ namespace SpaceInvaders
     /// <summary>
     /// System to move entities
     /// </summary>
-    class MoveSystem: GameSystem
+    class MoveSystem : GameSystem
     {
         /// <summary>
         /// Keep enemy block for simple access
@@ -27,12 +27,12 @@ namespace SpaceInvaders
             HashSet<Entity> movableEntities = gameEngine.entityManager.GetEntities(typeof(VelocityComponent));
 
             updateEnemyVelocity(gameEngine, deltaT, movableEntities);
-            
+
             foreach (Entity entity in movableEntities)
             {
-                
-                moveEntity(entity,deltaT);
-                
+
+                moveEntity(entity, deltaT);
+
                 if (outOfBonds(gameEngine, entity))
                 {
                     if (entity.GetComponent(typeof(MissileComponent)) != null)
@@ -44,7 +44,7 @@ namespace SpaceInvaders
                     {
                         moveBackEntity(entity, deltaT);
                     }
-                }                    
+                }
             }
         }
 
@@ -59,7 +59,7 @@ namespace SpaceInvaders
             VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
 
             position.PositionX += velocity.VelocityX * deltaT;
-            position.PositionY += velocity.VelocityY * deltaT;            
+            position.PositionY += velocity.VelocityY * deltaT;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace SpaceInvaders
         {
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             VelocityComponent velocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
-           
+
             position.PositionX -= velocity.VelocityX * deltaT;
             position.PositionY -= velocity.VelocityY * deltaT;
         }
@@ -87,9 +87,9 @@ namespace SpaceInvaders
             PositionComponent position = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
             HitboxComponent hitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
 
-            return position.PositionY < 0 
-                || position.PositionY + hitbox.Size.Height > gameEngine.gameSize.Height 
-                || position.PositionX < 0 
+            return position.PositionY < 0
+                || position.PositionY + hitbox.Size.Height > gameEngine.gameSize.Height
+                || position.PositionX < 0
                 || position.PositionX + hitbox.Size.Width > gameEngine.gameSize.Width;
         }
 
@@ -99,8 +99,8 @@ namespace SpaceInvaders
         /// <param name="gameEngine"></param>
         /// <param name="deltaT"></param>
         /// <param name="movableEntities"></param>
-        void updateEnemyVelocity(GameEngine gameEngine,double deltaT ,HashSet<Entity> movableEntities)
-        {            
+        void updateEnemyVelocity(GameEngine gameEngine, double deltaT, HashSet<Entity> movableEntities)
+        {
             HashSet<Entity> enemyList = gameEngine.entityManager.getEnemies();
             updateEnemyBlock(enemyList);
             VelocityComponent enemyBlockVelocity = (VelocityComponent)enemyBlock.GetComponent(typeof(VelocityComponent));
@@ -108,7 +108,7 @@ namespace SpaceInvaders
 
             moveEntity(enemyBlock, deltaT);
 
-            if(outOfBonds(gameEngine,enemyBlock))
+            if (outOfBonds(gameEngine, enemyBlock))
             {
                 moveBackEntity(enemyBlock, deltaT);
                 enemyBlockVelocity.VelocityX *= -1.01;
@@ -117,9 +117,9 @@ namespace SpaceInvaders
             else
             {
                 moveBackEntity(enemyBlock, deltaT);
-                enemyBlockVelocity.VelocityY = 0; 
+                enemyBlockVelocity.VelocityY = 0;
             }
-            foreach(Entity entity in enemyList)
+            foreach (Entity entity in enemyList)
             {
                 VelocityComponent entityVelocity = (VelocityComponent)entity.GetComponent(typeof(VelocityComponent));
                 entityVelocity.VelocityX = enemyBlockVelocity.VelocityX;
@@ -135,7 +135,7 @@ namespace SpaceInvaders
             double xMax = int.MinValue;
             double yMin = int.MaxValue;
             double yMax = int.MinValue;
-            foreach(Entity entity in enemyList)
+            foreach (Entity entity in enemyList)
             {
                 HitboxComponent entityHitbox = (HitboxComponent)entity.GetComponent(typeof(HitboxComponent));
                 PositionComponent entityPosition = (PositionComponent)entity.GetComponent(typeof(PositionComponent));
@@ -144,15 +144,15 @@ namespace SpaceInvaders
                 if (entityPosition.PositionY < yMin) yMin = entityPosition.PositionY;
                 if (entityPosition.PositionY + entityHitbox.Height > yMax) yMax = entityPosition.PositionY + entityHitbox.Height;
             }
-            enemyBlockHitbox.Width = (int)(xMax-xMin);
-            enemyBlockHitbox.Height = (int)(yMax-yMin);
+            enemyBlockHitbox.Width = (int)(xMax - xMin);
+            enemyBlockHitbox.Height = (int)(yMax - yMin);
             enemyBlockPosition.PositionX = xMin;
             enemyBlockPosition.PositionY = yMin;
-            
+
         }
 
 
-        
-        
+
+
     }
 }

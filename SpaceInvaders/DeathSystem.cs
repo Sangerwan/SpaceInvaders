@@ -18,18 +18,18 @@ namespace SpaceInvaders
         {
             HashSet<Entity> entities = gameEngine.entityManager.GameObjects;
             HashSet<Entity> candDieEntities = gameEngine.entityManager.GetEntities(typeof(HealthComponent));
-            foreach(Entity entity in candDieEntities)
+            foreach (Entity entity in candDieEntities)
             {
                 HealthComponent healthComponent = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
                 if (healthComponent.HP <= 0)
                 {
                     OnDeathComponent onDeathComponent = (OnDeathComponent)entity.GetComponent(typeof(OnDeathComponent));
-                    if(onDeathComponent!=null)
+                    if (onDeathComponent != null)
                         onDeathComponent.Action();
                     entities.Remove(entity);
                 }
             }
-            
+
         }
 
 

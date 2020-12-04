@@ -8,14 +8,14 @@ namespace SpaceInvaders
     /// <summary>
     /// Component for inputs
     /// </summary>
-    class InputComponent:Component
+    class InputComponent : Component
     {
 
         Dictionary<Keys, Action<Entity>> input;
 
         public InputComponent()
         {
-            this.input= new Dictionary<Keys, Action<Entity>>();
+            this.input = new Dictionary<Keys, Action<Entity>>();
         }
         public Dictionary<Keys, Action<Entity>> Input { get => input; set => input = value; }
     }

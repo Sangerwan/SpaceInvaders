@@ -8,14 +8,14 @@ namespace SpaceInvaders
     /// <summary>
     /// Component to hold the entity's velocity
     /// </summary>
-    class VelocityComponent:Component
+    class VelocityComponent : Component
     {
         double velocityX;
         double velocityY;
         double angularVelocity;
 
         public VelocityComponent(double velocityX, double velocityY) : this(velocityX, velocityY, 0)
-        {            
+        {
         }
 
         public VelocityComponent(double velocityX, double velocityY, double angularVelocity)

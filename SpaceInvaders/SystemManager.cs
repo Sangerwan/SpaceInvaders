@@ -18,7 +18,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Simple access for the system list
         /// </summary>
-        public List<GameSystem> Systems { get => systems;}
+        public List<GameSystem> Systems { get => systems; }
 
         /// <summary>
         /// Simple Constructor
@@ -67,12 +67,12 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="gameEngine">Current game</param>
         /// <param name="deltaT">Time elapsed since last update</param>
-        public void update(GameEngine gameEngine,double deltaT)
+        public void update(GameEngine gameEngine, double deltaT)
         {
             systems[0].update(gameEngine, deltaT);// input system
             if (gameEngine.currentGameState == GameState.state.Play)
             {
-                for(int i = 0; i < systems.Count-1; i++)
+                for (int i = 0; i < systems.Count - 1; i++)
                 {
                     systems[i].update(gameEngine, deltaT);
                 }
