@@ -111,7 +111,7 @@ namespace SpaceInvaders
             if (outOfBonds(gameEngine, enemyBlock))
             {
                 moveBackEntity(enemyBlock, deltaT);
-                enemyBlockVelocity.VelocityX *= -1.01;
+                enemyBlockVelocity.VelocityX *= -1.02;
                 enemyBlockVelocity.VelocityY = 1500;
             }
             else

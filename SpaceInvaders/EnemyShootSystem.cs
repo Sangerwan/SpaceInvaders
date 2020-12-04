@@ -17,7 +17,7 @@ namespace SpaceInvaders
 
         public EnemyShootSystem(GameEngine gameEngine)
         {
-            this.ShootProbability = 1;
+            this.ShootProbability = 0.05;
             this.random = new Random();
         }
 
@@ -43,8 +43,9 @@ namespace SpaceInvaders
                     gameEngine.entityManager.createMissile(entity);
                     entity.removeComponent(typeof(CanShootComponent));
                 }
-                shootProbability += 0.01;
+                
             }
+            shootProbability += 0.01 * deltaT;
         }
 
 

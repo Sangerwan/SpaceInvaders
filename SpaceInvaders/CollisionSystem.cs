@@ -73,8 +73,8 @@ namespace SpaceInvaders
                             return;
                         }
 
-                        if (colliderImageComponent.Image.GetPixel(i, j) != Color.FromArgb(0, 255, 255, 255) &&
-                                collidedImageComponent.Image.GetPixel(x, y) != Color.FromArgb(0, 255, 255, 255))
+                        if (colliderImageComponent.Image.GetPixel(i, j) != Color.FromArgb(0, 255, 255, 255)
+                            && collidedImageComponent.Image.GetPixel(x, y) != Color.FromArgb(0, 255, 255, 255))
                         {
                             collision(collider, collided, x, y);
                         }
