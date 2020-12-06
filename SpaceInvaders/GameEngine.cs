@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Media;
 
 namespace SpaceInvaders
 {
@@ -37,6 +38,10 @@ namespace SpaceInvaders
         /// </summary>
         public SystemManager systemManager;
 
+        /// <summary>
+        /// Sound player
+        /// </summary>
+        SoundPlayer soundPlayer;
         #endregion
 
         #region static fields (helpers)
@@ -76,6 +81,12 @@ namespace SpaceInvaders
             gameState = GameState.state.Play;
             entityManager = new EntityManager(this);
             systemManager = new SystemManager(this);
+            soundPlayer = new SoundPlayer(SpaceInvaders.Properties.Resources.failsound);
+
+            soundPlayer.LoadAsync();
+
+            soundPlayer.PlayLooping();
+
         }
 
         /// <summary>

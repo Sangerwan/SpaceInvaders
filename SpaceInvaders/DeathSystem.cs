@@ -29,7 +29,6 @@ namespace SpaceInvaders
                     entities.Remove(entity);
                 }
             }
-
         }
 
 
