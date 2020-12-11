@@ -7,7 +7,7 @@ using System.Drawing;
 namespace SpaceInvaders
 {
     /// <summary>
-    /// 
+    /// System to render
     /// </summary>
     class RenderSystem: GameSystem
     {

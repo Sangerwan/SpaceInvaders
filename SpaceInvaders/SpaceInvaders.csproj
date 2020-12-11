@@ -118,6 +118,12 @@
     <Compile Include="SideComponent.cs">
       <DependentUpon>Component.cs</DependentUpon>
     </Compile>
+    <Compile Include="SoundComponent.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoundSystem.cs">
+      <DependentUpon>GameSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="SpaceShipComponent.cs">
       <DependentUpon>Entity.cs</DependentUpon>
     </Compile>
@@ -200,6 +206,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shoot1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\impact.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shoot.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

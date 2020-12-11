@@ -61,6 +61,15 @@ namespace SpaceInvaders.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream background {
+            get {
+                return ResourceManager.GetStream("background", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bonus {
@@ -87,6 +96,15 @@ namespace SpaceInvaders.Properties {
             get {
                 object obj = ResourceManager.GetObject("bunker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream impact {
+            get {
+                return ResourceManager.GetStream("impact", resourceCulture);
             }
         }
         
@@ -177,6 +195,15 @@ namespace SpaceInvaders.Properties {
             get {
                 object obj = ResourceManager.GetObject("ship9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream shoot {
+            get {
+                return ResourceManager.GetStream("shoot", resourceCulture);
             }
         }
         

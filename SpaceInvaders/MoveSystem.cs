@@ -38,7 +38,7 @@ namespace SpaceInvaders
                     if (entity.GetComponent(typeof(MissileComponent)) != null)
                     {
                         HealthComponent health = (HealthComponent)entity.GetComponent(typeof(HealthComponent));
-                        health.HP = 0;
+                        health.HP = 0;                        
                     }
                     else
                     {

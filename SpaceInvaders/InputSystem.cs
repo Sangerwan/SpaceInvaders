@@ -62,6 +62,7 @@ namespace SpaceInvaders
             }
         }
 
+
         /// <summary>
         /// Update game state
         /// </summary>

@@ -1,237 +1,251 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SpaceInvaders.Component" Collapsed="true">
-    <Position X="34" Y="9.75" Width="1.5" />
+    <Position X="18.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Component.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.CanShootComponent" Collapsed="true">
-    <Position X="4.75" Y="11" Width="1.5" />
+    <Position X="15.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CanShootComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.EnemyBlockComponent" Collapsed="true">
-    <Position X="11.5" Y="11" Width="1.5" />
+    <Position X="16.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EnemyBlockComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.HealthComponent" Collapsed="true">
-    <Position X="18.25" Y="11" Width="1.5" />
+    <Position X="17.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>HealthComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.HitboxComponent" Collapsed="true">
-    <Position X="25" Y="11" Width="1.5" />
+    <Position X="24.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAgAAAAIAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>HitboxComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.ImageComponent" Collapsed="true">
-    <Position X="31.75" Y="11" Width="1.5" />
+    <Position X="26.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>ImageComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.InputComponent" Collapsed="true">
-    <Position X="2.5" Y="11" Width="1.5" />
+    <Position X="10.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>InputComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.OnCollisionComponent" Collapsed="true">
-    <Position X="7" Y="11" Width="1.5" />
+    <Position X="12" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OnCollisionComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.OnDeathComponent" Collapsed="true">
-    <Position X="13.75" Y="11" Width="1.5" />
+    <Position X="13.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>OnDeathComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.PositionComponent" Collapsed="true">
-    <Position X="20.5" Y="11" Width="1.5" />
+    <Position X="19.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PositionComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.SideComponent" Collapsed="true">
-    <Position X="27.25" Y="11" Width="1.5" />
+    <Position X="28" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SideComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SpaceInvaders.SoundComponent" Collapsed="true">
+    <Position X="22.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAA=</HashCode>
+      <FileName>SoundComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="SpaceInvaders.VelocityComponent" Collapsed="true">
-    <Position X="34" Y="11" Width="1.5" />
+    <Position X="21" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAQAAAAEAAA=</HashCode>
       <FileName>VelocityComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Entity" Collapsed="true">
-    <Position X="34" Y="9" Width="1.5" />
+    <Position X="37.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAACACABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.BunkerComponent" Collapsed="true">
-    <Position X="9.25" Y="11" Width="1.5" />
+    <Position X="20" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BunkerComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.MissileComponent" Collapsed="true">
-    <Position X="16" Y="11" Width="1.5" />
+    <Position X="21.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MissileComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.PlayerComponent" Collapsed="true">
-    <Position X="22.75" Y="11" Width="1.5" />
+    <Position X="18.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PlayerComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.SpaceShipComponent" Collapsed="true">
-    <Position X="29.5" Y="11" Width="1.5" />
+    <Position X="14.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SpaceShipComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.EntityManager" Collapsed="true">
-    <Position X="33.75" Y="8.25" Width="2" />
+    <Position X="39.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIMAAgABQAgAAAAwAAABAAAgCgAAAACBAAQAAA=</HashCode>
       <FileName>EntityManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.EntitySide" Collapsed="true">
-    <Position X="39" Y="0.5" Width="1.5" />
+    <Position X="41" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntitySide.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.GameForm" Collapsed="true">
-    <Position X="35.5" Y="1.5" Width="1.5" />
+    <Position X="37.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgCCAAAAgAAACAwgACACAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.GameEngine" Collapsed="true">
-    <Position X="33.75" Y="7.25" Width="6.25" />
+    <Position X="42.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAAAQCAAAAAAAAAAACAAAEAAAAAAAIABAiAAAAAAA=</HashCode>
+      <HashCode>AASAAAACAAAAAAAAAAACAAAEAAAAAAAIABAiAAAAAAA=</HashCode>
       <FileName>GameEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.GameState" Collapsed="true">
-    <Position X="37.25" Y="1.5" Width="1.5" />
+    <Position X="39.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.GameSystem" Collapsed="true">
-    <Position X="38" Y="9.75" Width="1.5" />
+    <Position X="8" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>GameSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.CollisionSystem" Collapsed="true">
-    <Position X="49.25" Y="11" Width="1.5" />
+    <Position X="8.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAIAAAIQAAAAAAAAACAAAAAAAAAEAAA=</HashCode>
       <FileName>CollisionSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.DeathSystem" Collapsed="true">
-    <Position X="38" Y="11" Width="1.5" />
+    <Position X="10.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DeathSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.EnemyShootSystem" Collapsed="true">
-    <Position X="40.25" Y="11" Width="1.5" />
+    <Position X="5.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAQA=</HashCode>
       <FileName>EnemyShootSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.InputSystem" Collapsed="true">
-    <Position X="42.5" Y="11" Width="1.5" />
+    <Position X="1.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAAAAAAAAEAAAAAAAAAAEAAAABEAAA=</HashCode>
       <FileName>InputSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.MoveSystem" Collapsed="true">
-    <Position X="44.75" Y="11" Width="1.5" />
+    <Position X="7" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAkAAAAAAAAAAAAAAQAAAAAIAAAAAAEAAg=</HashCode>
       <FileName>MoveSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.RenderSystem" Collapsed="true">
-    <Position X="47" Y="11" Width="1.5" />
+    <Position X="14" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAiAAAAAAAAAAAAAAAAEAAACAAAAAEAAAAAEAAA=</HashCode>
       <FileName>RenderSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SpaceInvaders.SoundSystem" Collapsed="true">
+    <Position X="3.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAIAAAAAEAAA=</HashCode>
+      <FileName>SoundSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="SpaceInvaders.WinLooseSystem" Collapsed="true">
-    <Position X="51.5" Y="11" Width="1.5" />
+    <Position X="12.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAABAAAAEAAA=</HashCode>
       <FileName>WinLooseSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Program" Collapsed="true">
-    <Position X="39" Y="1.5" Width="1.5" />
+    <Position X="41" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.SystemManager" Collapsed="true">
-    <Position X="37.75" Y="9" Width="2" />
+    <Position X="39.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAABAAAAAAAAAAAAAAAAEAAAADEAAA=</HashCode>
       <FileName>SystemManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Properties.Resources" Collapsed="true">
-    <Position X="40.75" Y="1.5" Width="1.5" />
+    <Position X="42.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQAAAAEBAAAAAAABgADEAAAAwEAAAAAACgAAAAAAJA=</HashCode>
+      <HashCode>CAQAAAAEBAAAAAAQBgADEAAAAwEAAAAAACgAAAAAIJA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Properties.Settings" Collapsed="true">
-    <Position X="35.5" Y="2.5" Width="1.5" />
+    <Position X="37.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>

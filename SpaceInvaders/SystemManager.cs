@@ -37,6 +37,7 @@ namespace SpaceInvaders
         void InitSystem(GameEngine gameEngine)
         {
             InputSystem inputSystem = new InputSystem(gameEngine);
+            SoundSystem soundSystem = new SoundSystem(gameEngine);
             EnemyShootSystem enemyShootSystem = new EnemyShootSystem(gameEngine);
             MoveSystem moveSystem = new MoveSystem(gameEngine);
             CollisionSystem collisionSystem = new CollisionSystem(gameEngine);
@@ -45,7 +46,7 @@ namespace SpaceInvaders
             WinLooseSystem winLooseSystem = new WinLooseSystem(gameEngine);
 
             //order is important
-            addSystem(inputSystem, enemyShootSystem, moveSystem, collisionSystem, deathSystem, winLooseSystem, renderSystem);
+            addSystem(inputSystem, soundSystem, enemyShootSystem, moveSystem, collisionSystem, deathSystem, winLooseSystem, renderSystem);
 
         }
 
@@ -59,7 +60,6 @@ namespace SpaceInvaders
             {
                 systems.Add(system);
             }
-
         }
 
         /// <summary>
@@ -69,7 +69,17 @@ namespace SpaceInvaders
         /// <param name="deltaT">Time elapsed since last update</param>
         public void update(GameEngine gameEngine, double deltaT)
         {
-            systems[0].update(gameEngine, deltaT);// input system
+            int inputSystemIndex = systems.FindIndex(x => x.GetType() == typeof(InputSystem));
+            int soundSystemIndex = systems.FindIndex(x => x.GetType() == typeof(SoundSystem));
+            if (inputSystemIndex >= 0)
+            {
+                systems[inputSystemIndex].update(gameEngine, deltaT);// input system
+            }
+            if (soundSystemIndex >= 0)
+            {
+                systems[soundSystemIndex].update(gameEngine, deltaT);// sound system
+            }
+
             if (gameEngine.currentGameState == GameState.state.Play)
             {
                 for (int i = 0; i < systems.Count - 1; i++)
@@ -77,6 +87,7 @@ namespace SpaceInvaders
                     systems[i].update(gameEngine, deltaT);
                 }
             }
+            //system at (systems.Count - 1) is the render
         }
 
         /// <summary>
